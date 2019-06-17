@@ -1,0 +1,14 @@
+./source/src/SUMMARY.md
+./source/src/SUMMARY.zh.md
+./source/src/command-line-arguments.md
+./source/src/command-line-arguments.zh.md
+./source/src/documentation-tests.md
+./source/src/documentation-tests.zh.md
+./source/src/passes.md
+./source/src/passes.zh.md
+./source/src/the-doc-attribute.md
+./source/src/the-doc-attribute.zh.md
+./source/src/unstable-features.md
+./source/src/unstable-features.zh.md
+./source/src/what-is-rustdoc.md
+./source/src/what-is-rustdoc.zh.md
