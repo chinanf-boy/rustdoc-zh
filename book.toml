@@ -1,7 +1,7 @@
 [book]
 title = "rustdoc 非官方翻译"
 authors = ["(译者)yobrave"]
-description = "位于，rust-lang/rust/docs/rustdoc"
+description = "位于，rust-lang/rust/doc/rustdoc"
 language = "zh-CN"
 
 [build]
