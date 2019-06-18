@@ -22,10 +22,10 @@ git_repository_url = "https://github.com/chinanf-boy/rustdoc-zh"
 git_repository_icon = "fa-github"
 # additional-js = ["theme/custom.js"]
 
-[output.linkcheck]
-follow-web-links = true
-traverse-parent-directories = false
-exclude = [ "google\\.com" ]
+# [output.linkcheck]
+# follow-web-links = true
+# traverse-parent-directories = false
+# exclude = [ "google\\.com" ]
 
 [output.html.playpen]
 # editor = "./path/to/editor"
