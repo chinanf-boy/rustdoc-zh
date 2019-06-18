@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>文档测试 - rustdoc之书 非官方翻译</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="位于，rust-lang/rust/doc/rustdoc">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="tomorrow-night.css">
+    <link rel="stylesheet" href="ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    
+
+    
+</head>
+
+<body class="light">
+    <!-- Provide site root to javascript -->
+    <script type="text/javascript">var path_to_root = "";</script>
+
+    <!-- Work around some values being stored in localStorage wrapped in quotes -->
+    <script type="text/javascript">
+        try {
+            var theme = localStorage.getItem('mdbook-theme');
+            var sidebar = localStorage.getItem('mdbook-sidebar');
+
+            if (theme.startsWith('"') && theme.endsWith('"')) {
+                localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+            }
+
+            if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+            }
+        } catch (e) { }
+    </script>
+
+    <!-- Set the theme before any content is loaded, prevents flash -->
+    <script type="text/javascript">
+        var theme;
+        try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+        if (theme === null || theme === undefined) { theme = 'light'; }
+        document.body.className = theme;
+        document.querySelector('html').className = theme + ' js';
+    </script>
+
+    <!-- Hide / unhide sidebar before it is displayed -->
+    <script type="text/javascript">
+        var html = document.querySelector('html');
+        var sidebar = 'hidden';
+        if (document.body.clientWidth >= 1080) {
+            try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+            sidebar = sidebar || 'visible';
+        }
+        html.classList.remove('sidebar-visible');
+        html.classList.add("sidebar-" + sidebar);
+    </script>
+
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <ol class="chapter"><li><a href="what-is-rustdoc.zh.html"><strong aria-hidden="true">1.</strong> 什么是 rustdoc？</a></li><li><a href="command-line-arguments.zh.html"><strong aria-hidden="true">2.</strong> 命令行参数</a></li><li><a href="the-doc-attribute.zh.html"><strong aria-hidden="true">3.</strong> #[doc]属性</a></li><li><a href="documentation-tests.zh.html" class="active"><strong aria-hidden="true">4.</strong> 文档测试</a></li><li><a href="passes.zh.html"><strong aria-hidden="true">5.</strong> 通行证</a></li><li><a href="unstable-features.zh.html"><strong aria-hidden="true">6.</strong> 不稳定的功能</a></li></ol>
+    </nav>
+
+    <div id="page-wrapper" class="page-wrapper">
+
+        <div class="page">
+            
+            <div id="menu-bar" class="menu-bar">
+                <div id="menu-bar-sticky-container">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <!-- START - Rust Cookbook customization -->
+                        <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                            <i class="fa fa-edit">Edit</i>
+                        </button>
+                        <!-- END - Rust Cookbook customization -->
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">rustdoc之书 非官方翻译</h1>
+                    
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            
+            <div id="search-wrapper" class="hidden">
+                <form id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                        aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </form>
+                <div id="searchresults-outer" class="searchresults-outer hidden">
+                    <div id="searchresults-header" class="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+            </div>
+            
+
+            <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+            <script type="text/javascript">
+                document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                    link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                });
+            </script>
+
+            <!-- // START - Rust Cookbook customization -->
+            <script>
+                document.getElementById("edit-button").addEventListener("click", function () {
+                    var editWindow = window.open("https://github.com/chinanf-boy/rustdoc-zh/edit/master/src/documentation-tests.zh.md");
+                });</script>
+            <!-- // END - Rust Cookbook customization -->
+
+            <div id="content" class="content">
+                <main>
+                    <a class="header" href="#文档测试" id="文档测试"><h1>文档测试</h1></a>
+<p><code>rustdoc</code>支持执行文档示例，作为测试。这可以确保您的测试是最新的和有效的。</p>
+<p>基本的想法是这样的：</p>
+<pre><code class="language-ignore">/// # Examples
+///
+/// ```
+/// let x = 5;
+/// ```
+</code></pre>
+<p>三个反引号开始和结束的代码块。如果这是在一个名为<code>foo.rs</code>的文件中，运行<code>rustdoc --test foo.rs</code>将提取此示例，然后将其作为测试运行。</p>
+<p>请注意，默认情况下，如果没有为代码块设置语言，<code>rustdoc</code>假设它是<code>Rust</code>码。所以，以下内容：</p>
+<pre><code class="language-markdown">```rust
+let x = 5;
+```
+</code></pre>
+<p>严格等同于：</p>
+<pre><code class="language-markdown">```
+let x = 5;
+```
+</code></pre>
+<p>虽然有些微妙！但请继续。</p>
+<a class="header" href="#通过或未通过一个-doctest文档测试" id="通过或未通过一个-doctest文档测试"><h2>通过或未通过一个 doctest(文档测试)</h2></a>
+<p>与常规单元测试一样，如果编译和运行没有恐慌，常规 doctests 被认为是“通过”。因此，如果你想证明一些计算给出一定的结果，那么<code>assert!</code>宏家族的工作与常规 Rust 代码相同：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let foo = &quot;foo&quot;;
+
+assert_eq!(foo, &quot;foo&quot;);
+#}</code></pre></pre>
+<p>这样，如果计算返回不同的东西，代码恐慌，并且 doctest 失败。</p>
+<a class="header" href="#预处理示例" id="预处理示例"><h2>预处理示例</h2></a>
+<p>在上面的例子中，你会注意到一些奇怪的事情：没有<code>main</code>函数！若是强迫你在每个示例中，都要写<code>main</code>，无论这举动多小，都不太懒人化。所以<code>rustdoc</code>会在运行之前稍微处理您的示例。这就是 rustdoc 预处理示例的完整算法：</p>
+<ol>
+<li>插入些常见<code>allow</code>属性，包括<code>unused_variables</code>，<code>unused_assignments</code>，<code>unused_mut</code>，<code>unused_attributes</code>，和<code>dead_code</code>。小例子经常触发这些 lint。</li>
+<li>使用<code>#![doc(test(attr(...)))]</code>指定的任何属性，会被添加。</li>
+<li>任何<code>#![foo]</code>前缀属性保留为 箱子属性。</li>
+<li>如果示例不包含<code>extern crate</code>，和没有指定<code>#![doc(test(no_crate_inject))]</code>，那就插入<code>extern crate &lt;mycrate&gt;;</code>（注意<code>#[macro_use]</code>的缺乏）。</li>
+<li>最后，如果示例不包含<code>fn main</code>，文本的其余部分包含在<code>fn main() { your_code }</code>。</li>
+</ol>
+<p>有关规则 4 中警告的更多信息，请参阅下面的“宏文档”。</p>
+<a class="header" href="#隐藏示例的部分内容" id="隐藏示例的部分内容"><h2>隐藏示例的部分内容</h2></a>
+<p>有时，您需要一些设置代码，或其他会分散您示例，但对有效测试非常重要的的内容。考虑一个如下所示的示例块：</p>
+<pre><code class="language-text">/// /// Some documentation.
+/// # fn foo() {} // this function will be hidden
+/// println!(&quot;Hello, World!&quot;);
+</code></pre>
+<p>它将呈现如下：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Some documentation.
+# fn foo() {}
+println!(&quot;Hello, World!&quot;);
+#}</code></pre></pre>
+<p>是的，这是正确的：你可以添加以<code>#</code>开头的行，它们将从输出中隐藏，但在编译代码时将被使用。你可以利用这个优势。设想下，当文档注释需要应用于某种函数，所以如果我只想向您展示文档注释，我需要在它下面添加一个小函数定义。同时，它只是满足编译器，所以隐藏它，会使示例更清晰。您可以使用此技术，详细解释更长的示例，同时仍保留文档的可测试性。</p>
+<p>例如，假设我们想要文档化此代码：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let x = 5;
+let y = 6;
+println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+<p>我们可能希望文档最终看起来像这样：</p>
+<blockquote>
+<p>首先，我们设定<code>x</code>到 5：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let x = 5;
+# let y = 6;
+# println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+<p>接下来，我们设置<code>y</code>到 6：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# let x = 5;
+let y = 6;
+# println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+<p>最后，我们打印出的总和<code>x</code>和<code>y</code>：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# let x = 5;
+# let y = 6;
+println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+</blockquote>
+<p>为了保持每个代码块可测试，我们希望每个块，都有整个程序，但我们不希望读者每次都看到每一行。这是我们在源代码中添加的内容：</p>
+<pre><code class="language-markdown">First, we set `x` to five:
+
+```
+let x = 5;
+# let y = 6;
+# println!(&quot;{}&quot;, x + y);
+```
+
+Next, we set `y` to six:
+
+```
+# let x = 5;
+let y = 6;
+# println!(&quot;{}&quot;, x + y);
+```
+
+Finally, we print the sum of `x` and `y`:
+
+```
+# let x = 5;
+# let y = 6;
+println!(&quot;{}&quot;, x + y);
+```
+</code></pre>
+<p>通过重复示例的所有部分，您可以确保您的示例仍然编译，同时仅显示与您的解释部分相关的部分。</p>
+<p>通过使用两个连续的<code>##</code>哈希值，可以防止隐藏。这只需要用第一个完成<code>#</code>否则会导致隐藏。如果我们有一个像下面这样的字符串文字，它有一行是以一个<code>#</code>开头的字符串：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = &quot;foo
+## bar # baz&quot;;
+#}</code></pre></pre>
+<p>我们可以通过转义头个<code>#</code>来文档化它：</p>
+<pre><code class="language-text">/// let s = &quot;foo
+/// ## bar # baz&quot;;
+</code></pre>
+<a class="header" href="#在文档测试中运用" id="在文档测试中运用"><h2>在文档测试中运用<code>?</code></h2></a>
+<p>在编写示例时，包含完整的错误处理很少有用，因为它会添加大量的样板代码。相反，您可能需要以下内容：</p>
+<pre><code class="language-ignore">/// ```
+/// use std::io;
+/// let mut input = String::new();
+/// io::stdin().read_line(&amp;mut input)?;
+/// ```
+</code></pre>
+<p>问题是，<code>?</code>会返回一个<code>Result&lt;T, E&gt;</code>，而测试函数是不返回任何内容，因此这会给出不匹配的类型错误。</p>
+<p>你可以通过手动添加一个<code>main</code>，它返回<code>Result&lt;T, E&gt;</code>，因为<code>Result&lt;T, E&gt;</code>实现<code>Termination</code>trait，自然解决了这个限制：</p>
+<pre><code class="language-ignore">/// A doc test using ?
+///
+/// ```
+/// use std::io;
+///
+/// fn main() -&gt; io::Result&lt;()&gt; {
+///     let mut input = String::new();
+///     io::stdin().read_line(&amp;mut input)?;
+///     Ok(())
+/// }
+/// ```
+</code></pre>
+<p>再加上从上面的<code>#</code>部分，您可以得出一个解决方案，在读者看来它就是最初的想法，但可以与文档测试一起使用：</p>
+<pre><code class="language-ignore">/// ```
+/// use std::io;
+/// # fn main() -&gt; io::Result&lt;()&gt; {
+/// let mut input = String::new();
+/// io::stdin().read_line(&amp;mut input)?;
+/// # Ok(())
+/// # }
+/// ```
+</code></pre>
+<p>从 1.34.0 版开始，还可以省略<code>fn main()</code>，但必须消除错误类型的歧义：</p>
+<pre><code class="language-ignore">/// ```
+/// use std::io;
+/// let mut input = String::new();
+/// io::stdin().read_line(&amp;mut input)?;
+/// # Ok::&lt;(), io::Error&gt;(())
+/// ```
+</code></pre>
+<p><code>?</code>运算符要添加隐式转换，是一个不幸的结果。是因为类型不是唯一的，所以不这样的话，会导致类型推断失败。请注意，您必须写下<code>(())</code>序列，中间没有空格，以便 RustDoc 了解您需要一个隐式<code>Result</code>——返回函数。</p>
+<p>从 1.37.0 版开始，这种简化也适用于<code>Option</code>s，可以方便地测试，例如迭代器或校验算术，例如：</p>
+<pre><code class="language-ignore">/// ```
+/// let _ = &amp;[].iter().next()?;
+///# Some(())
+/// ```
+</code></pre>
+<p>请注意，结果必须是<code>Some(())</code>，且必须一次。在这种情况下，不需要消除结果的歧义。</p>
+<a class="header" href="#宏的文档" id="宏的文档"><h2>宏的文档</h2></a>
+<p>以下是一个宏的文档示例：</p>
+<pre><pre class="playpen"><code class="language-rust">/// 除非表达式正确，不然就信息性恐慌
+///
+/// # Examples
+///
+/// ```
+/// # #[macro_use] extern crate foo;
+/// # fn main() {
+/// panic_unless!(1 + 1 == 2, “Math is broken.”);
+/// # }
+/// ```
+///
+/// ```should_panic
+/// # #[macro_use] extern crate foo;
+/// # fn main() {
+/// panic_unless!(true == false, “I’m broken.”);
+/// # }
+/// ```
+#[macro_export]
+macro_rules! panic_unless {
+    ($condition:expr, $($rest:expr),+) =&gt; ({ if ! $condition { panic!($($rest),+); } });
+}
+# fn main() {}
+</code></pre></pre>
+<p>你会注意到三件事：</p>
+<ul>
+<li>1，我们需要增加我们自己的<code>extern crate</code>行，以便我们可以添加<code>#[macro_use]</code>属性。</li>
+<li>2，我们需要增加我们自己的<code>main()</code>以及（出于上述原因）。</li>
+<li>3，最后，明智地使用<code>#</code>注释掉这两件事，这样它们就不会出现在输出中。</li>
+</ul>
+<a class="header" href="#属性" id="属性"><h2>属性</h2></a>
+<p>有一些注释对<code>rustdoc</code>正确测试代码的事情上有帮助：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// ```ignore
+/// fn foo() {
+/// ```
+# fn foo() {}
+#}</code></pre></pre>
+<p>这个<code>ignore</code>指令告诉 Rust 忽略您的代码。大概是你不想要的(代码)，因为它太普通了。相反，如果不是代码，考虑用<code>text</code>文本，或者使用<code>#</code>得到一个只显示你关心的部分的工作示例。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// ```should_panic
+/// assert!(false);
+/// ```
+# fn foo() {}
+#}</code></pre></pre>
+<p><code>should_panic</code>讲述<code>rustdoc</code>代码应该正确编译，但不能作为测试通过。</p>
+<pre><code class="language-text">/// ```no_run
+/// loop {
+///     println!(&quot;Hello, world&quot;);
+/// }
+/// ```
+# fn foo() {}
+</code></pre>
+<p>这个<code>no_run</code>属性将编译代码，但不运行它。这对“以下是如何检索网页”等示例很重要，您可能希望确保编译，但可能是在没有网络访问的测试环境中运行。</p>
+<pre><code class="language-text">/// ```compile_fail
+/// let x = 5;
+/// x += 2; // shouldn't compile!
+/// ```
+</code></pre>
+<p><code>compile_fail</code>讲述<code>rustdoc</code>编译应该失败。如果它编译，那么测试将失败。但是，请注意，随着新特性的添加，在当前 Rust 标准版失败的代码，可能在将来的版本中工作。</p>
+<pre><code class="language-text">/// 只在 2018 edition 运行.
+///
+/// ```edition2018
+/// let result: Result&lt;i32, ParseIntError&gt; = try {
+///     &quot;1&quot;.parse::&lt;i32&gt;()?
+///         + &quot;2&quot;.parse::&lt;i32&gt;()?
+///         + &quot;3&quot;.parse::&lt;i32&gt;()?
+/// };
+/// ```
+</code></pre>
+<p><code>edition2018</code>讲述<code>rustdoc</code>代码样本，应在 2018 版 Rust 下编译。同样，您可以指定<code>edition2015</code>以 2015 年版编制本规范。</p>
+<a class="header" href="#语法参考" id="语法参考"><h2>语法参考</h2></a>
+<p><em>准确的</em>代码块（包括边缘大小写）的语法可以在通用标记规范的<a href="https://spec.commonmark.org/0.28/#fenced-code-blocks">用栅栏围起来的代码块</a>章节找到。</p>
+<p>RustDoc 也接受<em>缩进</em>代码块，作为栅栏代码块的替代：您可以将每行缩进四个或更多的空格，而不是用三个反勾号包围代码。</p>
+<pre><code class="language-markdown">    let foo = &quot;foo&quot;;
+    assert_eq!(foo, &quot;foo&quot;);
+</code></pre>
+<p>这些也记录在通用标记规范中，<a href="https://spec.commonmark.org/0.28/#indented-code-blocks">缩进代码块</a>章节。</p>
+<p>但是，最好使用栅栏代码块，而不是缩进代码块。不仅仅是栅栏代码块被认为是 Rust 代码的习惯，还因为缩进代码块没有办法使用诸如<code>ignore</code>或<code>should_panic</code>。</p>
+
+                </main>
+
+                <nav class="nav-wrapper" aria-label="Page navigation">
+                    <!-- Mobile navigation buttons -->
+                    
+                    <a rel="prev" href="the-doc-attribute.zh.html" class="mobile-nav-chapters previous" title="Previous chapter"
+                        aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    
+
+                    
+                    <a rel="next" href="passes.zh.html" class="mobile-nav-chapters next" title="Next chapter"
+                        aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    
+
+                    <div style="clear: both"></div>
+                </nav>
+            </div>
+        </div>
+
+        <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            
+            <a href="the-doc-attribute.zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter"
+                aria-keyshortcuts="Left">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            
+
+            
+            <a href="passes.zh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter"
+                aria-keyshortcuts="Right">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            
+        </nav>
+
+    </div>
+
+    
+
+    
+    <!-- Google Analytics Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128555056-1"></script>
+    
+    <script type="text/javascript">
+        var localAddrs = ["localhost", "127.0.0.1", ""];
+        if (localAddrs.indexOf(document.location.hostname) === -1) {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-128555056-1');
+        }
+    </script>
+    
+
+    
+
+    
+    <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+    
+
+    <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Custom JS scripts -->
+    
+
+    
+
+</body>
+
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>#[doc]属性 - rustdoc之书 非官方翻译</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="位于，rust-lang/rust/doc/rustdoc">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="tomorrow-night.css">
+    <link rel="stylesheet" href="ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    
+
+    
+</head>
+
+<body class="light">
+    <!-- Provide site root to javascript -->
+    <script type="text/javascript">var path_to_root = "";</script>
+
+    <!-- Work around some values being stored in localStorage wrapped in quotes -->
+    <script type="text/javascript">
+        try {
+            var theme = localStorage.getItem('mdbook-theme');
+            var sidebar = localStorage.getItem('mdbook-sidebar');
+
+            if (theme.startsWith('"') && theme.endsWith('"')) {
+                localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+            }
+
+            if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+            }
+        } catch (e) { }
+    </script>
+
+    <!-- Set the theme before any content is loaded, prevents flash -->
+    <script type="text/javascript">
+        var theme;
+        try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+        if (theme === null || theme === undefined) { theme = 'light'; }
+        document.body.className = theme;
+        document.querySelector('html').className = theme + ' js';
+    </script>
+
+    <!-- Hide / unhide sidebar before it is displayed -->
+    <script type="text/javascript">
+        var html = document.querySelector('html');
+        var sidebar = 'hidden';
+        if (document.body.clientWidth >= 1080) {
+            try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+            sidebar = sidebar || 'visible';
+        }
+        html.classList.remove('sidebar-visible');
+        html.classList.add("sidebar-" + sidebar);
+    </script>
+
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <ol class="chapter"><li><a href="what-is-rustdoc.zh.html"><strong aria-hidden="true">1.</strong> 什么是 rustdoc？</a></li><li><a href="command-line-arguments.zh.html"><strong aria-hidden="true">2.</strong> 命令行参数</a></li><li><a href="the-doc-attribute.zh.html" class="active"><strong aria-hidden="true">3.</strong> #[doc]属性</a></li><li><a href="documentation-tests.zh.html"><strong aria-hidden="true">4.</strong> 文档测试</a></li><li><a href="passes.zh.html"><strong aria-hidden="true">5.</strong> 通行证</a></li><li><a href="unstable-features.zh.html"><strong aria-hidden="true">6.</strong> 不稳定的功能</a></li></ol>
+    </nav>
+
+    <div id="page-wrapper" class="page-wrapper">
+
+        <div class="page">
+            
+            <div id="menu-bar" class="menu-bar">
+                <div id="menu-bar-sticky-container">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <!-- START - Rust Cookbook customization -->
+                        <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                            <i class="fa fa-edit">Edit</i>
+                        </button>
+                        <!-- END - Rust Cookbook customization -->
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">rustdoc之书 非官方翻译</h1>
+                    
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            
+            <div id="search-wrapper" class="hidden">
+                <form id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                        aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </form>
+                <div id="searchresults-outer" class="searchresults-outer hidden">
+                    <div id="searchresults-header" class="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+            </div>
+            
+
+            <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+            <script type="text/javascript">
+                document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                    link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                });
+            </script>
+
+            <!-- // START - Rust Cookbook customization -->
+            <script>
+                document.getElementById("edit-button").addEventListener("click", function () {
+                    var editWindow = window.open("https://github.com/chinanf-boy/rustdoc-zh/edit/master/src/the-doc-attribute.zh.md");
+                });</script>
+            <!-- // END - Rust Cookbook customization -->
+
+            <div id="content" class="content">
+                <main>
+                    <a class="header" href="#doc属性" id="doc属性"><h1><code>#[doc]</code>属性</h1></a>
+<p><code>#[doc]</code>属性可以让你控制<code>rustdoc</code>各个方面的工作。</p>
+<p><code>#[doc]</code>最基本的功能就是处理实际的文档文本。<code>///</code>，就是<code>#[doc]</code>的语法糖。这意味着，这两个是相同的：</p>
+<pre><code class="language-rust ignore">/// This is a doc comment.
+#[doc = &quot; This is a doc comment.&quot;]
+</code></pre>
+<p>（注意属性版本中，字符串的前空格。）</p>
+<p>在多数情况下，<code>///</code>比起<code>#[doc]</code>更容易使用。后者更容易使用的一种情况，是在宏中生成文档；<code>collapse-docs</code>通行证参数会把多个<code>#[doc]</code>属性，结合到单个 doc 注释中，让您生成如下代码：</p>
+<pre><code class="language-rust ignore">#[doc = &quot;This is&quot;]
+#[doc = &quot; a &quot;]
+#[doc = &quot;doc comment&quot;]
+</code></pre>
+<p>能感觉更加灵活。注意这会生成：</p>
+<pre><code class="language-rust ignore">#[doc = &quot;This is\n a \ndoc comment&quot;]
+</code></pre>
+<p>但鉴于文档是通过 Markdown 呈现的，它将删除这些换行符。</p>
+<p><code>doc</code>属性版本会有更多的选项！不是涉及输出文本的，而是有关输出描述的各个方面。我们把它们分为以下两种：箱子级别有用的属性，以及项目级别有用的属性。</p>
+<a class="header" href="#在箱子级别" id="在箱子级别"><h2>在箱子级别</h2></a>
+<p>这些选项控制文档，在宏观层面的外观。</p>
+<a class="header" href="#html_favicon_url" id="html_favicon_url"><h3><code>html_favicon_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，可让您控制文档的图标。</p>
+<pre><code class="language-rust ignore">#![doc(html_favicon_url = &quot;https://example.com/favicon.ico&quot;)]
+</code></pre>
+<p>这会将<code>&lt;link rel=&quot;shortcut icon&quot; href=&quot;{}&quot;&gt;</code>放入你的文档(HTML)，<code>{}</code>就是你的字符串。</p>
+<p>如果您不使用此属性，则不会有图标。</p>
+<a class="header" href="#html_logo_url" id="html_logo_url"><h3><code>html_logo_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，允许您控制文档左上角的徽标。</p>
+<pre><code class="language-rust ignore">#![doc(html_logo_url = &quot;https://example.com/logo.jpg&quot;)]
+</code></pre>
+<p>这将提出<code>&lt;a href='index.html'&gt;&lt;img src='{}' alt='logo' width='100'&gt;&lt;/a&gt;</code>进入你的文档，<code>{}</code>就是你的字符串。</p>
+<p>如果您不使用此属性，则不会有徽标。</p>
+<a class="header" href="#html_playground_url" id="html_playground_url"><h3><code>html_playground_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，可以控制文档示例中的“Run”按钮，发出请求的位置。</p>
+<pre><code class="language-rust ignore">#![doc(html_playground_url = &quot;https://playground.example.com/&quot;)]
+</code></pre>
+<p>现在，当您按“Run”时，该按钮将向此域名发出请求。</p>
+<p>如果您不使用此属性，则不会有 Run 按钮。</p>
+<a class="header" href="#issue_tracker_base_url" id="issue_tracker_base_url"><h3><code>issue_tracker_base_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，大多只对标准库有用；当一个功能不稳定时，必须提供跟踪该功能的问题编号。<code>rustdoc</code>使用编号，加上此处给出的基本 URL，链接到跟踪问题。</p>
+<pre><code class="language-rust ignore">#![doc(issue_tracker_base_url = &quot;https://github.com/rust-lang/rust/issues/&quot;)]
+</code></pre>
+<a class="header" href="#html_root_url" id="html_root_url"><h3><code>html_root_url</code></h3></a>
+<p><code>#[doc(html_root_url = &quot;…&quot;)]</code>属性的值，表示生成指向外部箱子的 URL 链接。当 rustdoc 需要生成指向一个外部箱子的项的链接时，它将首先检查外部箱子，是否已在本地磁盘上记录，如果是，则直接链接到它。如果不是，它将使用<code>--extern-html-root-url</code>命令行标志给出的 URL（如果可用）。如果也没有，那么它将使用 extern crate 中的<code>html_root_url</code>值(如果可用)。如果还不可用，则不会链接 extern 项。</p>
+<pre><code class="language-rust ignore">#![doc(html_root_url = &quot;https://docs.rs/serde/1.0&quot;)]
+</code></pre>
+<a class="header" href="#html_no_source" id="html_no_source"><h3><code>html_no_source</code></h3></a>
+<p>默认情况下，<code>rustdoc</code>将包含您的程序的源代码，以及在文档中的链接。但如果你包括这个：</p>
+<pre><code class="language-rust ignore">#![doc(html_no_source)]
+</code></pre>
+<p>就不默认。</p>
+<a class="header" href="#testno_crate_inject" id="testno_crate_inject"><h3><code>test(no_crate_inject)</code></h3></a>
+<p>默认情况下，<code>rustdoc</code>会自动添加一行<code>extern crate my_crate;</code>进入每个 doctest(文档测试)。但如果你包括这个：</p>
+<pre><code class="language-rust ignore">#![doc(test(no_crate_inject))]
+</code></pre>
+<p>它不会。</p>
+<a class="header" href="#testattr" id="testattr"><h3><code>test(attr(...))</code></h3></a>
+<p><code>doc</code>属性的这种形式，允许您向所有 doctests 添加任意属性。例如，如果您希望您的 doctests 在产生任何警告时失败，您可以添加以下内容：</p>
+<pre><code class="language-rust ignore">#![doc(test(attr(deny(warnings))))]
+</code></pre>
+<a class="header" href="#项目级别" id="项目级别"><h2>项目级别</h2></a>
+<p><code>#[doc]</code>属性的这些形式，用于单个项目，以控制它们的文档化方式。</p>
+<a class="header" href="#docno_inlinedocinline" id="docno_inlinedocinline"><h2><code>#[doc(no_inline)]</code>/<code>#[doc(inline)]</code></h2></a>
+<p>这些属性用在<code>use</code>声明语句，和控制文档出现的位置。例如，考虑这个 Rust 代码：</p>
+<pre><code class="language-rust ignore">pub use bar::Bar;
+
+/// bar docs
+pub mod bar {
+    /// the docs for Bar
+    pub struct Bar;
+}
+</code></pre>
+<p>该文档将生成“Re-exports”部分，并给出<code>pub use bar::Bar;</code>，那这个<code>Bar</code>会是它自身页面的链接。</p>
+<p>但如果我们像这样，改变了<code>use</code>行：</p>
+<pre><code class="language-rust ignore">#[doc(inline)]
+pub use bar::Bar;
+</code></pre>
+<p><code>Bar</code>就变成，出现在<code>Structs</code>部分，<code>Bar</code>就像是在顶层定义的，而不是<code>pub use</code>形式。</p>
+<p>让我们改变我们原来的例子，把<code>bar</code>模块变为私有：</p>
+<pre><code class="language-rust ignore">pub use bar::Bar;
+
+/// bar docs
+mod bar {
+    /// the docs for Bar
+    pub struct Bar;
+}
+</code></pre>
+<p>在这里，因为<code>bar</code>不公开，<code>Bar</code>就不会有自己的页面，所以没有地方可以链接。<code>rustdoc</code>将内联(inline)这些定义，因此我们最终的结果与上面<code>#[doc(inline)]</code>一样；<code>Bar</code>在<code>Structs</code>部分，好像它是在顶层定义的。如果，我们换成<code>no_inline</code>：</p>
+<pre><code class="language-rust ignore">#[doc(no_inline)]
+pub use bar::Bar;
+
+/// bar docs
+mod bar {
+    /// the docs for Bar
+    pub struct Bar;
+}
+</code></pre>
+<p>现在变成，有一个<code>Re-exports</code>部分，但<code>Bar</code>不会链接到任何地方。</p>
+<p>一个特例：在 Rust 2018 及以后，如果你<code>pub use</code>你的一个依赖，除非你添加<code>#[doc(inline)]</code>，否则<code>rustdoc</code>不会急切地将其作为模块内联。</p>
+<a class="header" href="#dochidden" id="dochidden"><h2><code>#[doc(hidden)]</code></h2></a>
+<p>任何带<code>#[doc(hidden)]</code>注释的项不会出现在文档中，除非<code>strip-hidden</code>通行证参数被删除。</p>
+<a class="header" href="#docprimitive" id="docprimitive"><h2><code>#[doc(primitive)]</code></h2></a>
+<p>由于原始类型是在编译器中定义的，因此无法附加文档属性。标准库会用此属性提供的方法，生成原始类型的文档。</p>
+
+                </main>
+
+                <nav class="nav-wrapper" aria-label="Page navigation">
+                    <!-- Mobile navigation buttons -->
+                    
+                    <a rel="prev" href="command-line-arguments.zh.html" class="mobile-nav-chapters previous" title="Previous chapter"
+                        aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    
+
+                    
+                    <a rel="next" href="documentation-tests.zh.html" class="mobile-nav-chapters next" title="Next chapter"
+                        aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    
+
+                    <div style="clear: both"></div>
+                </nav>
+            </div>
+        </div>
+
+        <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            
+            <a href="command-line-arguments.zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter"
+                aria-keyshortcuts="Left">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            
+
+            
+            <a href="documentation-tests.zh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter"
+                aria-keyshortcuts="Right">
+                <i class="fa fa-angle-right"></i>
+            </a>
+            
+        </nav>
+
+    </div>
+
+    
+
+    
+    <!-- Google Analytics Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128555056-1"></script>
+    
+    <script type="text/javascript">
+        var localAddrs = ["localhost", "127.0.0.1", ""];
+        if (localAddrs.indexOf(document.location.hostname) === -1) {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-128555056-1');
+        }
+    </script>
+    
+
+    
+
+    
+    <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+    
+
+    <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Custom JS scripts -->
+    
+
+    
+
+</body>
+
+</html>

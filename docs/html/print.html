@@ -1,0 +1,1067 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>rustdoc之书 非官方翻译</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="位于，rust-lang/rust/doc/rustdoc">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="tomorrow-night.css">
+    <link rel="stylesheet" href="ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    
+
+    
+</head>
+
+<body class="light">
+    <!-- Provide site root to javascript -->
+    <script type="text/javascript">var path_to_root = "";</script>
+
+    <!-- Work around some values being stored in localStorage wrapped in quotes -->
+    <script type="text/javascript">
+        try {
+            var theme = localStorage.getItem('mdbook-theme');
+            var sidebar = localStorage.getItem('mdbook-sidebar');
+
+            if (theme.startsWith('"') && theme.endsWith('"')) {
+                localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+            }
+
+            if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+            }
+        } catch (e) { }
+    </script>
+
+    <!-- Set the theme before any content is loaded, prevents flash -->
+    <script type="text/javascript">
+        var theme;
+        try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+        if (theme === null || theme === undefined) { theme = 'light'; }
+        document.body.className = theme;
+        document.querySelector('html').className = theme + ' js';
+    </script>
+
+    <!-- Hide / unhide sidebar before it is displayed -->
+    <script type="text/javascript">
+        var html = document.querySelector('html');
+        var sidebar = 'hidden';
+        if (document.body.clientWidth >= 1080) {
+            try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+            sidebar = sidebar || 'visible';
+        }
+        html.classList.remove('sidebar-visible');
+        html.classList.add("sidebar-" + sidebar);
+    </script>
+
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+        <ol class="chapter"><li><a href="what-is-rustdoc.zh.html"><strong aria-hidden="true">1.</strong> 什么是 rustdoc？</a></li><li><a href="command-line-arguments.zh.html"><strong aria-hidden="true">2.</strong> 命令行参数</a></li><li><a href="the-doc-attribute.zh.html"><strong aria-hidden="true">3.</strong> #[doc]属性</a></li><li><a href="documentation-tests.zh.html"><strong aria-hidden="true">4.</strong> 文档测试</a></li><li><a href="passes.zh.html"><strong aria-hidden="true">5.</strong> 通行证</a></li><li><a href="unstable-features.zh.html"><strong aria-hidden="true">6.</strong> 不稳定的功能</a></li></ol>
+    </nav>
+
+    <div id="page-wrapper" class="page-wrapper">
+
+        <div class="page">
+            
+            <div id="menu-bar" class="menu-bar">
+                <div id="menu-bar-sticky-container">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <!-- START - Rust Cookbook customization -->
+                        <button id="edit-button" class="icon-button" type="button" title="Fork and edit" aria-label="Fork and edit"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="edit">
+                            <i class="fa fa-edit">Edit</i>
+                        </button>
+                        <!-- END - Rust Cookbook customization -->
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme"
+                            aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">rustdoc之书 非官方翻译</h1>
+                    
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            
+            <div id="search-wrapper" class="hidden">
+                <form id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                        aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </form>
+                <div id="searchresults-outer" class="searchresults-outer hidden">
+                    <div id="searchresults-header" class="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+            </div>
+            
+
+            <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+            <script type="text/javascript">
+                document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                    link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                });
+            </script>
+
+            <!-- // START - Rust Cookbook customization -->
+            <script>
+                document.getElementById("edit-button").addEventListener("click", function () {
+                    var editWindow = window.open("https://github.com/chinanf-boy/rustdoc-zh/edit/master/src/print.md");
+                });</script>
+            <!-- // END - Rust Cookbook customization -->
+
+            <div id="content" class="content">
+                <main>
+                    <a class="header" href="#什么是-rustdoc" id="什么是-rustdoc"><h1>什么是 rustdoc？</h1></a>
+<p>标准的 Rust 发行版，附带了一个名为<code>rustdoc</code>的工具。它的任务是为 Rust 项目，生成(示例/代码)文档。基本层面理解为，Rustdoc 将 一个 (crate root)箱子的根目录 或 Markdown 文件作为参数，并生成 HTML，CSS 和 JavaScript。</p>
+<a class="header" href="#基本用法" id="基本用法"><h2>基本用法</h2></a>
+<p>试一试吧！让我们用 Cargo 创建一个新项目：</p>
+<pre><code class="language-bash">$ cargo new docs
+$ cd docs
+</code></pre>
+<p>在<code>src/lib.rs</code>，你会发现 Cargo 已经生成了一些示例代码。删除它并替换为：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// foo 是一个函数
+fn foo() {}
+#}</code></pre></pre>
+<p>让我们用<code>rustdoc</code>对准我们的代码。为此，到达我们的 crate root 的路径上，调用它，如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs
+</code></pre>
+<p>这将创建一个新目录，<code>doc</code>，里面有一个网站！在我们的例子中，主网页是<code>doc/lib/index.html</code>。如果你在网络浏览器中打开它，你会看到一个带有搜索栏的页面，顶部有“Crate lib”，没有内容。这有两个问题：</p>
+<ul>
+<li>首先，为什么我们的包名是“lib”？</li>
+<li>第二，为什么它没有任何内容？</li>
+</ul>
+<p>第一个问题是由于，<code>rustdoc</code>想要给出帮助信息；如同<code>rustc</code>一样，它会假定我们的箱子名，就是箱子根目录的文件名。要解决这个问题，我们可以传入一个命令行标志：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --crate-name docs
+</code></pre>
+<p>现在，<code>doc/docs/index.html</code>将生成，页面显示“Crate docs”。</p>
+<p>对于第二个问题，是因为我们的函数<code>foo</code>是不公开的；<code>rustdoc</code>默认仅为公开函数，生成文档。如果我们改变我们的代码...</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// foo 是一个函数
+pub fn foo() {}
+#}</code></pre></pre>
+<p>...然后重新运行<code>rustdoc</code>：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --crate-name docs
+</code></pre>
+<p>我们将有一些生成的文档。打开<code>doc/docs/index.html</code>并检查出来！它应该显示一个链接<code>foo</code>函数页面，位于<code>doc/docs/fn.foo.html</code>。在那个页面上，你会看到“foo 是一个函数”，正是我们放在箱子的文档注释。</p>
+<a class="header" href="#rustdoc-搭配-cargo" id="rustdoc-搭配-cargo"><h2>rustdoc 搭配 Cargo</h2></a>
+<p>Cargo 也有整合<code>rustdoc</code>使生成文档更容易。不是<code>rustdoc</code>命令，我们会使用：</p>
+<pre><code class="language-bash">$ cargo doc
+</code></pre>
+<p>在内部，会像这样调用<code>rustdoc</code>：</p>
+<pre><code class="language-bash">$ rustdoc --crate-name docs srclib.rs -o &lt;path&gt;\docs\target\doc -L
+dependency=&lt;path&gt;docs\target\debug\deps
+</code></pre>
+<p>用<code>cargo doc --verbose</code>，能看到这个详细信息。</p>
+<p>可以看到，内部命令为我们生成了正确的<code>--crate-name</code>，以及指向<code>src/lib.rs</code>，但那些其他参数呢？<code>-o</code>控制我们文档的<em>o</em>utput(输出目录)。不再是<code>doc</code>顶级目录，您会注意到 Cargo 把生成的文档放在<code>target</code>。这是 Cargo 项目中，生成文件的惯用场所。还有，一个<code>-L</code>标志，它帮助 rustdoc 找到您的代码所依赖的依赖项。如果我们的项目使用依赖项，我们也会获得它们的文档！</p>
+<a class="header" href="#使用独立的-markdown-文件" id="使用独立的-markdown-文件"><h2>使用独立的 Markdown 文件</h2></a>
+<p><code>rustdoc</code>也可以从独立的 Markdown 文件生成 HTML。让我们试一试：创建一个<code>README.md</code>，包含以下内容的文件：</p>
+<pre><code class="language-text"># Docs
+
+This is a project to test out `rustdoc`.
+
+[Here is a link!](https://www.rust-lang.org)
+
+## Subheading
+
+```rust
+fn foo() -&gt; i32 {
+    1 + 1
+}
+```
+</code></pre>
+<p>调用<code>rustdoc</code>：</p>
+<pre><code class="language-bash">$ rustdoc README.md
+</code></pre>
+<p>你会找到一个 HTML 文件<code>docs/doc/README.html</code>，源自 Markdown 内容。</p>
+<p>不幸的是，Cargo 目前无法理解独立的 Markdown 文件。</p>
+<a class="header" href="#摘要" id="摘要"><h2>摘要</h2></a>
+<p>这涵盖了最简单的<code>rustdoc</code>用例。本书的其余部分，将解释<code>rustdoc</code>所有的选项，以及如何使用它们。</p>
+<a class="header" href="#命令行参数" id="命令行参数"><h1>命令行参数</h1></a>
+<p>这是您可以传递给<code>rustdoc</code>的参数列表：</p>
+<a class="header" href="#-h--help帮助" id="-h--help帮助"><h2><code>-h</code>/<code>--help</code>：帮助</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc -h
+$ rustdoc --help
+</code></pre>
+<p>这将显示<code>rustdoc</code>的内置帮助，主要由能用的命令行标志列表组成。</p>
+<p>会有一些<code>rustdoc</code>的标志参数不稳定；此页仅显示稳定的选项，<code>--help</code>则会显示全部。</p>
+<a class="header" href="#-v--version版本信息" id="-v--version版本信息"><h2><code>-V</code>/<code>--version</code>：版本信息</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc -V
+$ rustdoc --version
+</code></pre>
+<p>这将显示<code>rustdoc</code>的版本，其外观如下：</p>
+<pre><code class="language-text">rustdoc 1.17.0 (56124baa9 2017-04-24)
+</code></pre>
+<a class="header" href="#-v--verbose更详细的输出" id="-v--verbose更详细的输出"><h2><code>-v</code>/<code>--verbose</code>：更详细的输出</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc -v src/lib.rs
+$ rustdoc --verbose src/lib.rs
+</code></pre>
+<p>这将启用“详细模式”，这意味着更多信息将写入标准输出。所写的内容取决于您传入的其他标志。例如，使用<code>--version</code>：</p>
+<pre><code class="language-text">$ rustdoc --verbose --version
+rustdoc 1.17.0 (56124baa9 2017-04-24)
+binary: rustdoc
+commit-hash: hash
+commit-date: date
+host: host-triple
+release: 1.17.0
+LLVM version: 3.9
+</code></pre>
+<a class="header" href="#-r--input-format输入格式" id="-r--input-format输入格式"><h2><code>-r</code>/<code>--input-format</code>：输入格式</h2></a>
+<p>此标志当前被忽略；想法是<code>rustdoc</code>将支持各种输入格式，您可以通过这个标志来指定它们。</p>
+<p>RustDoc 只支持 Rust 源代码和 markdown 输入格式。如果文件以<code>.md</code>或<code>.markdown</code>，<code>rustdoc</code>将其视为 markdown 文件。否则，它假定输入文件是 Rust 的。</p>
+<a class="header" href="#-w--output-format输出格式" id="-w--output-format输出格式"><h2><code>-w</code>/<code>--output-format</code>：输出格式</h2></a>
+<p>此标志当前被忽略；其想法是<code>rustdoc</code>将支持各种输出格式，您可以通过此标志指定它们。</p>
+<p>RustDoc 只支持 HTML 输出，所以这个标志在今天来说是多余的。</p>
+<a class="header" href="#-o--output输出路径" id="-o--output输出路径"><h2><code>-o</code>/<code>--output</code>：输出路径</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -o target\\doc
+$ rustdoc src/lib.rs --output target\\doc
+</code></pre>
+<p>默认情况下，<code>rustdoc</code>的输出显示在当前工作目录中的<code>doc</code>目录。使用这个标志，它将把所有输出放到您指定的目录中。</p>
+<a class="header" href="#--crate-name控制箱子的名称" id="--crate-name控制箱子的名称"><h2><code>--crate-name</code>：控制箱子的名称</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --crate-name mycrate
+</code></pre>
+<p>默认情况下，<code>rustdoc</code>假设箱子的名称与<code>.rs</code>文件名一样。<code>--crate-name</code>允许您用您选择的任何名称覆盖这个假设。</p>
+<a class="header" href="#-l--library-path查找依赖项的位置" id="-l--library-path查找依赖项的位置"><h2><code>-L</code>/<code>--library-path</code>：查找依赖项的位置</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -L target/debug/deps
+$ rustdoc src/lib.rs --library-path target/debug/deps
+</code></pre>
+<p>如果你的箱子有依赖性，<code>rustdoc</code>需要知道在哪里找到他们。传递<code>--library-path</code>参数，让<code>rustdoc</code>可以查找这些依赖项的位置列表。</p>
+<p>此标志接受任意数量的目录作为参数，并在搜索时，使用所有文档。</p>
+<a class="header" href="#--cfg传递配置标志" id="--cfg传递配置标志"><h2><code>--cfg</code>：传递配置标志</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --cfg feature=&quot;foo&quot;
+</code></pre>
+<p>此标志接受的值与<code>rustc --cfg</code>一样，也可以用来配置编译。上面的示例使用<code>feature</code>，但任何的<code>cfg</code>值都是可以接受的。</p>
+<a class="header" href="#--extern指定依赖项的位置" id="--extern指定依赖项的位置"><h2><code>--extern</code>：指定依赖项的位置</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --extern lazy-static=/path/to/lazy-static
+</code></pre>
+<p>类似<code>--library-path</code>，<code>--extern</code>是关于指定依赖项的位置。<code>--library-path</code>提供要搜索的目录，<code>--extern</code>相反，您可以确切地指定依赖项位于何处。</p>
+<a class="header" href="#-c--codegen将-codegen-选项传递给-rustc" id="-c--codegen将-codegen-选项传递给-rustc"><h2><code>-C</code>/<code>--codegen</code>：将 codegen 选项传递给 rustc</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -C target_feature=+avx
+$ rustdoc src/lib.rs --codegen target_feature=+avx
+
+$ rustdoc --test src/lib.rs -C target_feature=+avx
+$ rustdoc --test src/lib.rs --codegen target_feature=+avx
+
+$ rustdoc --test README.md -C target_feature=+avx
+$ rustdoc --test README.md --codegen target_feature=+avx
+</code></pre>
+<p>当 RustDoc 生成文档、查找文档测试或执行文档测试时，它需要编译一些 Rust 代码，至少是部分编译。此标志允许您告诉 RustDoc 在运行这些编译时，向 RustC 提供一些额外的 codegen 选项。大多数情况下，这些选项不会影响常规文档运行，但如果某些内容会依赖要启用的目标功能(target feature)，或者文档测试需要使用一些其他选项，这时，这个标志就能让您影响这些内容。</p>
+<p>此标志的参数与 rustc 上的<code>-C</code>标志一样。运行<code>rustc -C help</code>获取完整的列表。</p>
+<a class="header" href="#--passes添加更多-rustdoc-psses通行证" id="--passes添加更多-rustdoc-psses通行证"><h2><code>--passes</code>：添加更多 RustDoc psses（通行证）</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc --passes list
+$ rustdoc src/lib.rs --passes strip-priv-imports
+</code></pre>
+<p>“list”参数将打印一个可能的“rustdoc passes”列表，除默认值外，其他参数则是功能与其名。</p>
+<p>有关通行证的详细信息，请参见<a href="passes.zh.html">关于它们的章节</a>.</p>
+<p>另请参见<code>--no-defaults</code>.</p>
+<a class="header" href="#--no-defaults不运行默认通行证" id="--no-defaults不运行默认通行证"><h2><code>--no-defaults</code>：不运行默认通行证</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --no-defaults
+</code></pre>
+<p>默认情况下，<code>rustdoc</code>在代码上运行多个通行证。此标志就是删除这些默认值的，让你自行重新传递<code>--passes</code>，以准确指定所需的通行证。</p>
+<p>有关通行证的详细信息，请参见<a href="passes.zh.html">关于它们的章节</a>.</p>
+<p>另请参见<code>--passes</code>.</p>
+<a class="header" href="#--test将代码示例作为测试运行" id="--test将代码示例作为测试运行"><h2><code>--test</code>：将代码示例作为测试运行</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --test
+</code></pre>
+<p>此标志将运行代码示例作为测试。有关更多信息，请参阅<a href="documentation-tests.zh.html">文档测试章节</a>。</p>
+<p>另请参见<code>--test-args</code>.</p>
+<a class="header" href="#--test-args传递选项给测试运行程序" id="--test-args传递选项给测试运行程序"><h2><code>--test-args</code>：传递选项给测试运行程序</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --test --test-args ignored
+</code></pre>
+<p>此标志将在运行文档测试时，将选项传递给测试运行程序。有关更多信息，请参阅<a href="documentation-tests.zh.html">文档测试章节</a>。</p>
+<p>另请参见<code>--test</code>.</p>
+<a class="header" href="#--target为指定的三元目标生成文档" id="--target为指定的三元目标生成文档"><h2><code>--target</code>：为指定的三元目标，生成文档</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --target x86_64-pc-windows-gnu
+</code></pre>
+<p>类似于<code>rustc</code>的<code>--target</code>标志，生成指定三元目标的文档。</p>
+<p>所有跨平台编译代码的常见注意事项都适用。</p>
+<a class="header" href="#--markdown-css渲染-markdown-时包含更多-css-文件" id="--markdown-css渲染-markdown-时包含更多-css-文件"><h2><code>--markdown-css</code>：渲染 markdown 时，包含更多 CSS 文件</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc README.md --markdown-css foo.css
+</code></pre>
+<p>渲染 markdown 文件时，这将在生成 HTML 的<code>&lt;head&gt;</code>元素内，创建一个<code>&lt;link&gt;</code>元素。例如，上面的调用会生成，</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;foo.css&quot; /&gt;
+</code></pre>
+<p>添加到 HTML。</p>
+<p>渲染 Rust 文件时，此标志将被忽略。</p>
+<a class="header" href="#--html-in-header在-head-中-包含更多-html" id="--html-in-header在-head-中-包含更多-html"><h2><code>--html-in-header</code>：在 <head> 中 包含更多 HTML</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --html-in-header header.html
+$ rustdoc README.md --html-in-header header.html
+</code></pre>
+<p>此标志获取文件列表，并将其插入到渲染文档的<code>&lt;head&gt;</code>。</p>
+<a class="header" href="#--html-before-content在-content-之前包含更多-html" id="--html-before-content在-content-之前包含更多-html"><h2><code>--html-before-content</code>：在 content 之前，包含更多 HTML</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --html-before-content extra.html
+$ rustdoc README.md --html-before-content extra.html
+</code></pre>
+<p>此标志获取文件列表，并将其插入到渲染文档的<code>&lt;body&gt;</code>标记元素，但排在其他 content(内容) 之前。</p>
+<a class="header" href="#--html-after-content在-content-之后包含更多-html" id="--html-after-content在-content-之后包含更多-html"><h2><code>--html-after-content</code>：在 content 之后，包含更多 HTML</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --html-after-content extra.html
+$ rustdoc README.md --html-after-content extra.html
+</code></pre>
+<p>此标志获取文件列表，并将其插入到渲染文档的<code>&lt;/body&gt;</code>标记元素，但排在其他 content 之后。</p>
+<a class="header" href="#--markdown-playground-url控制游乐场的位置" id="--markdown-playground-url控制游乐场的位置"><h2><code>--markdown-playground-url</code>：控制游乐场的位置</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc README.md --markdown-playground-url https://play.rust-lang.org/
+</code></pre>
+<p>在渲染 markdown 文件时，此标志提供 Rust Playground 的基 URL，用于生成<code>Run</code>按钮。</p>
+<a class="header" href="#--markdown-no-toc不生成文件目录超链接" id="--markdown-no-toc不生成文件目录超链接"><h2><code>--markdown-no-toc</code>：不生成文件目录超链接</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc README.md --markdown-no-toc
+</code></pre>
+<p>从 markdown 文件生成文档时，默认情况下，<code>rustdoc</code>将生成目录。此标志禁止此操作，不会生成 TOC（目录超链接）。</p>
+<a class="header" href="#-e--extend-css扩展-rustdoc-的-css" id="-e--extend-css扩展-rustdoc-的-css"><h2><code>-e</code>/<code>--extend-css</code>：扩展 RustDoc 的 CSS</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -e extra.css
+$ rustdoc src/lib.rs --extend-css extra.css
+</code></pre>
+<p>使用此标志，您传递文件的内容，将添加到 RustDoc <code>theme.css</code>文件的下面。</p>
+<p>当此标志稳定时，<code>theme.css</code>的内容会不在了，所以小心点！更新可能会破坏你的主题扩展。</p>
+<a class="header" href="#--sysroot重写系统根目录" id="--sysroot重写系统根目录"><h2><code>--sysroot</code>：重写系统根目录</h2></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --sysroot /path/to/sysroot
+</code></pre>
+<p>类似<code>rustc --sysroot</code>，这允许您在编译代码时，更改<code>rustdoc</code>使用的 sysroot。</p>
+<a class="header" href="#--edition控制文档和文档测试的版本edition" id="--edition控制文档和文档测试的版本edition"><h3><code>--edition</code>：控制文档和文档测试的版本(edition)</h3></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --edition 2018
+$ rustdoc --test src/lib.rs --edition 2018
+</code></pre>
+<p>此标志允许 RustDoc 将您的 Rust 代码视为给定版本。它也将用给定的版本编译文档测试。与<code>rustc</code>一样，<code>rustdoc</code>使用的默认版本是<code>2015</code>（第一版）。</p>
+<a class="header" href="#doc属性" id="doc属性"><h1><code>#[doc]</code>属性</h1></a>
+<p><code>#[doc]</code>属性可以让你控制<code>rustdoc</code>各个方面的工作。</p>
+<p><code>#[doc]</code>最基本的功能就是处理实际的文档文本。<code>///</code>，就是<code>#[doc]</code>的语法糖。这意味着，这两个是相同的：</p>
+<pre><code class="language-rust ignore">/// This is a doc comment.
+#[doc = &quot; This is a doc comment.&quot;]
+</code></pre>
+<p>（注意属性版本中，字符串的前空格。）</p>
+<p>在多数情况下，<code>///</code>比起<code>#[doc]</code>更容易使用。后者更容易使用的一种情况，是在宏中生成文档；<code>collapse-docs</code>通行证参数会把多个<code>#[doc]</code>属性，结合到单个 doc 注释中，让您生成如下代码：</p>
+<pre><code class="language-rust ignore">#[doc = &quot;This is&quot;]
+#[doc = &quot; a &quot;]
+#[doc = &quot;doc comment&quot;]
+</code></pre>
+<p>能感觉更加灵活。注意这会生成：</p>
+<pre><code class="language-rust ignore">#[doc = &quot;This is\n a \ndoc comment&quot;]
+</code></pre>
+<p>但鉴于文档是通过 Markdown 呈现的，它将删除这些换行符。</p>
+<p><code>doc</code>属性版本会有更多的选项！不是涉及输出文本的，而是有关输出描述的各个方面。我们把它们分为以下两种：箱子级别有用的属性，以及项目级别有用的属性。</p>
+<a class="header" href="#在箱子级别" id="在箱子级别"><h2>在箱子级别</h2></a>
+<p>这些选项控制文档，在宏观层面的外观。</p>
+<a class="header" href="#html_favicon_url" id="html_favicon_url"><h3><code>html_favicon_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，可让您控制文档的图标。</p>
+<pre><code class="language-rust ignore">#![doc(html_favicon_url = &quot;https://example.com/favicon.ico&quot;)]
+</code></pre>
+<p>这会将<code>&lt;link rel=&quot;shortcut icon&quot; href=&quot;{}&quot;&gt;</code>放入你的文档(HTML)，<code>{}</code>就是你的字符串。</p>
+<p>如果您不使用此属性，则不会有图标。</p>
+<a class="header" href="#html_logo_url" id="html_logo_url"><h3><code>html_logo_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，允许您控制文档左上角的徽标。</p>
+<pre><code class="language-rust ignore">#![doc(html_logo_url = &quot;https://example.com/logo.jpg&quot;)]
+</code></pre>
+<p>这将提出<code>&lt;a href='index.html'&gt;&lt;img src='{}' alt='logo' width='100'&gt;&lt;/a&gt;</code>进入你的文档，<code>{}</code>就是你的字符串。</p>
+<p>如果您不使用此属性，则不会有徽标。</p>
+<a class="header" href="#html_playground_url" id="html_playground_url"><h3><code>html_playground_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，可以控制文档示例中的“Run”按钮，发出请求的位置。</p>
+<pre><code class="language-rust ignore">#![doc(html_playground_url = &quot;https://playground.example.com/&quot;)]
+</code></pre>
+<p>现在，当您按“Run”时，该按钮将向此域名发出请求。</p>
+<p>如果您不使用此属性，则不会有 Run 按钮。</p>
+<a class="header" href="#issue_tracker_base_url" id="issue_tracker_base_url"><h3><code>issue_tracker_base_url</code></h3></a>
+<p><code>doc</code>属性的这种形式，大多只对标准库有用；当一个功能不稳定时，必须提供跟踪该功能的问题编号。<code>rustdoc</code>使用编号，加上此处给出的基本 URL，链接到跟踪问题。</p>
+<pre><code class="language-rust ignore">#![doc(issue_tracker_base_url = &quot;https://github.com/rust-lang/rust/issues/&quot;)]
+</code></pre>
+<a class="header" href="#html_root_url" id="html_root_url"><h3><code>html_root_url</code></h3></a>
+<p><code>#[doc(html_root_url = &quot;…&quot;)]</code>属性的值，表示生成指向外部箱子的 URL 链接。当 rustdoc 需要生成指向一个外部箱子的项的链接时，它将首先检查外部箱子，是否已在本地磁盘上记录，如果是，则直接链接到它。如果不是，它将使用<code>--extern-html-root-url</code>命令行标志给出的 URL（如果可用）。如果也没有，那么它将使用 extern crate 中的<code>html_root_url</code>值(如果可用)。如果还不可用，则不会链接 extern 项。</p>
+<pre><code class="language-rust ignore">#![doc(html_root_url = &quot;https://docs.rs/serde/1.0&quot;)]
+</code></pre>
+<a class="header" href="#html_no_source" id="html_no_source"><h3><code>html_no_source</code></h3></a>
+<p>默认情况下，<code>rustdoc</code>将包含您的程序的源代码，以及在文档中的链接。但如果你包括这个：</p>
+<pre><code class="language-rust ignore">#![doc(html_no_source)]
+</code></pre>
+<p>就不默认。</p>
+<a class="header" href="#testno_crate_inject" id="testno_crate_inject"><h3><code>test(no_crate_inject)</code></h3></a>
+<p>默认情况下，<code>rustdoc</code>会自动添加一行<code>extern crate my_crate;</code>进入每个 doctest(文档测试)。但如果你包括这个：</p>
+<pre><code class="language-rust ignore">#![doc(test(no_crate_inject))]
+</code></pre>
+<p>它不会。</p>
+<a class="header" href="#testattr" id="testattr"><h3><code>test(attr(...))</code></h3></a>
+<p><code>doc</code>属性的这种形式，允许您向所有 doctests 添加任意属性。例如，如果您希望您的 doctests 在产生任何警告时失败，您可以添加以下内容：</p>
+<pre><code class="language-rust ignore">#![doc(test(attr(deny(warnings))))]
+</code></pre>
+<a class="header" href="#项目级别" id="项目级别"><h2>项目级别</h2></a>
+<p><code>#[doc]</code>属性的这些形式，用于单个项目，以控制它们的文档化方式。</p>
+<a class="header" href="#docno_inlinedocinline" id="docno_inlinedocinline"><h2><code>#[doc(no_inline)]</code>/<code>#[doc(inline)]</code></h2></a>
+<p>这些属性用在<code>use</code>声明语句，和控制文档出现的位置。例如，考虑这个 Rust 代码：</p>
+<pre><code class="language-rust ignore">pub use bar::Bar;
+
+/// bar docs
+pub mod bar {
+    /// the docs for Bar
+    pub struct Bar;
+}
+</code></pre>
+<p>该文档将生成“Re-exports”部分，并给出<code>pub use bar::Bar;</code>，那这个<code>Bar</code>会是它自身页面的链接。</p>
+<p>但如果我们像这样，改变了<code>use</code>行：</p>
+<pre><code class="language-rust ignore">#[doc(inline)]
+pub use bar::Bar;
+</code></pre>
+<p><code>Bar</code>就变成，出现在<code>Structs</code>部分，<code>Bar</code>就像是在顶层定义的，而不是<code>pub use</code>形式。</p>
+<p>让我们改变我们原来的例子，把<code>bar</code>模块变为私有：</p>
+<pre><code class="language-rust ignore">pub use bar::Bar;
+
+/// bar docs
+mod bar {
+    /// the docs for Bar
+    pub struct Bar;
+}
+</code></pre>
+<p>在这里，因为<code>bar</code>不公开，<code>Bar</code>就不会有自己的页面，所以没有地方可以链接。<code>rustdoc</code>将内联(inline)这些定义，因此我们最终的结果与上面<code>#[doc(inline)]</code>一样；<code>Bar</code>在<code>Structs</code>部分，好像它是在顶层定义的。如果，我们换成<code>no_inline</code>：</p>
+<pre><code class="language-rust ignore">#[doc(no_inline)]
+pub use bar::Bar;
+
+/// bar docs
+mod bar {
+    /// the docs for Bar
+    pub struct Bar;
+}
+</code></pre>
+<p>现在变成，有一个<code>Re-exports</code>部分，但<code>Bar</code>不会链接到任何地方。</p>
+<p>一个特例：在 Rust 2018 及以后，如果你<code>pub use</code>你的一个依赖，除非你添加<code>#[doc(inline)]</code>，否则<code>rustdoc</code>不会急切地将其作为模块内联。</p>
+<a class="header" href="#dochidden" id="dochidden"><h2><code>#[doc(hidden)]</code></h2></a>
+<p>任何带<code>#[doc(hidden)]</code>注释的项不会出现在文档中，除非<code>strip-hidden</code>通行证参数被删除。</p>
+<a class="header" href="#docprimitive" id="docprimitive"><h2><code>#[doc(primitive)]</code></h2></a>
+<p>由于原始类型是在编译器中定义的，因此无法附加文档属性。标准库会用此属性提供的方法，生成原始类型的文档。</p>
+<a class="header" href="#文档测试" id="文档测试"><h1>文档测试</h1></a>
+<p><code>rustdoc</code>支持执行文档示例，作为测试。这可以确保您的测试是最新的和有效的。</p>
+<p>基本的想法是这样的：</p>
+<pre><code class="language-ignore">/// # Examples
+///
+/// ```
+/// let x = 5;
+/// ```
+</code></pre>
+<p>三个反引号开始和结束的代码块。如果这是在一个名为<code>foo.rs</code>的文件中，运行<code>rustdoc --test foo.rs</code>将提取此示例，然后将其作为测试运行。</p>
+<p>请注意，默认情况下，如果没有为代码块设置语言，<code>rustdoc</code>假设它是<code>Rust</code>码。所以，以下内容：</p>
+<pre><code class="language-markdown">```rust
+let x = 5;
+```
+</code></pre>
+<p>严格等同于：</p>
+<pre><code class="language-markdown">```
+let x = 5;
+```
+</code></pre>
+<p>虽然有些微妙！但请继续。</p>
+<a class="header" href="#通过或未通过一个-doctest文档测试" id="通过或未通过一个-doctest文档测试"><h2>通过或未通过一个 doctest(文档测试)</h2></a>
+<p>与常规单元测试一样，如果编译和运行没有恐慌，常规 doctests 被认为是“通过”。因此，如果你想证明一些计算给出一定的结果，那么<code>assert!</code>宏家族的工作与常规 Rust 代码相同：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let foo = &quot;foo&quot;;
+
+assert_eq!(foo, &quot;foo&quot;);
+#}</code></pre></pre>
+<p>这样，如果计算返回不同的东西，代码恐慌，并且 doctest 失败。</p>
+<a class="header" href="#预处理示例" id="预处理示例"><h2>预处理示例</h2></a>
+<p>在上面的例子中，你会注意到一些奇怪的事情：没有<code>main</code>函数！若是强迫你在每个示例中，都要写<code>main</code>，无论这举动多小，都不太懒人化。所以<code>rustdoc</code>会在运行之前稍微处理您的示例。这就是 rustdoc 预处理示例的完整算法：</p>
+<ol>
+<li>插入些常见<code>allow</code>属性，包括<code>unused_variables</code>，<code>unused_assignments</code>，<code>unused_mut</code>，<code>unused_attributes</code>，和<code>dead_code</code>。小例子经常触发这些 lint。</li>
+<li>使用<code>#![doc(test(attr(...)))]</code>指定的任何属性，会被添加。</li>
+<li>任何<code>#![foo]</code>前缀属性保留为 箱子属性。</li>
+<li>如果示例不包含<code>extern crate</code>，和没有指定<code>#![doc(test(no_crate_inject))]</code>，那就插入<code>extern crate &lt;mycrate&gt;;</code>（注意<code>#[macro_use]</code>的缺乏）。</li>
+<li>最后，如果示例不包含<code>fn main</code>，文本的其余部分包含在<code>fn main() { your_code }</code>。</li>
+</ol>
+<p>有关规则 4 中警告的更多信息，请参阅下面的“宏文档”。</p>
+<a class="header" href="#隐藏示例的部分内容" id="隐藏示例的部分内容"><h2>隐藏示例的部分内容</h2></a>
+<p>有时，您需要一些设置代码，或其他会分散您示例，但对有效测试非常重要的的内容。考虑一个如下所示的示例块：</p>
+<pre><code class="language-text">/// /// Some documentation.
+/// # fn foo() {} // this function will be hidden
+/// println!(&quot;Hello, World!&quot;);
+</code></pre>
+<p>它将呈现如下：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Some documentation.
+# fn foo() {}
+println!(&quot;Hello, World!&quot;);
+#}</code></pre></pre>
+<p>是的，这是正确的：你可以添加以<code>#</code>开头的行，它们将从输出中隐藏，但在编译代码时将被使用。你可以利用这个优势。设想下，当文档注释需要应用于某种函数，所以如果我只想向您展示文档注释，我需要在它下面添加一个小函数定义。同时，它只是满足编译器，所以隐藏它，会使示例更清晰。您可以使用此技术，详细解释更长的示例，同时仍保留文档的可测试性。</p>
+<p>例如，假设我们想要文档化此代码：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let x = 5;
+let y = 6;
+println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+<p>我们可能希望文档最终看起来像这样：</p>
+<blockquote>
+<p>首先，我们设定<code>x</code>到 5：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let x = 5;
+# let y = 6;
+# println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+<p>接下来，我们设置<code>y</code>到 6：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# let x = 5;
+let y = 6;
+# println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+<p>最后，我们打印出的总和<code>x</code>和<code>y</code>：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# let x = 5;
+# let y = 6;
+println!(&quot;{}&quot;, x + y);
+#}</code></pre></pre>
+</blockquote>
+<p>为了保持每个代码块可测试，我们希望每个块，都有整个程序，但我们不希望读者每次都看到每一行。这是我们在源代码中添加的内容：</p>
+<pre><code class="language-markdown">First, we set `x` to five:
+
+```
+let x = 5;
+# let y = 6;
+# println!(&quot;{}&quot;, x + y);
+```
+
+Next, we set `y` to six:
+
+```
+# let x = 5;
+let y = 6;
+# println!(&quot;{}&quot;, x + y);
+```
+
+Finally, we print the sum of `x` and `y`:
+
+```
+# let x = 5;
+# let y = 6;
+println!(&quot;{}&quot;, x + y);
+```
+</code></pre>
+<p>通过重复示例的所有部分，您可以确保您的示例仍然编译，同时仅显示与您的解释部分相关的部分。</p>
+<p>通过使用两个连续的<code>##</code>哈希值，可以防止隐藏。这只需要用第一个完成<code>#</code>否则会导致隐藏。如果我们有一个像下面这样的字符串文字，它有一行是以一个<code>#</code>开头的字符串：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = &quot;foo
+## bar # baz&quot;;
+#}</code></pre></pre>
+<p>我们可以通过转义头个<code>#</code>来文档化它：</p>
+<pre><code class="language-text">/// let s = &quot;foo
+/// ## bar # baz&quot;;
+</code></pre>
+<a class="header" href="#在文档测试中运用" id="在文档测试中运用"><h2>在文档测试中运用<code>?</code></h2></a>
+<p>在编写示例时，包含完整的错误处理很少有用，因为它会添加大量的样板代码。相反，您可能需要以下内容：</p>
+<pre><code class="language-ignore">/// ```
+/// use std::io;
+/// let mut input = String::new();
+/// io::stdin().read_line(&amp;mut input)?;
+/// ```
+</code></pre>
+<p>问题是，<code>?</code>会返回一个<code>Result&lt;T, E&gt;</code>，而测试函数是不返回任何内容，因此这会给出不匹配的类型错误。</p>
+<p>你可以通过手动添加一个<code>main</code>，它返回<code>Result&lt;T, E&gt;</code>，因为<code>Result&lt;T, E&gt;</code>实现<code>Termination</code>trait，自然解决了这个限制：</p>
+<pre><code class="language-ignore">/// A doc test using ?
+///
+/// ```
+/// use std::io;
+///
+/// fn main() -&gt; io::Result&lt;()&gt; {
+///     let mut input = String::new();
+///     io::stdin().read_line(&amp;mut input)?;
+///     Ok(())
+/// }
+/// ```
+</code></pre>
+<p>再加上从上面的<code>#</code>部分，您可以得出一个解决方案，在读者看来它就是最初的想法，但可以与文档测试一起使用：</p>
+<pre><code class="language-ignore">/// ```
+/// use std::io;
+/// # fn main() -&gt; io::Result&lt;()&gt; {
+/// let mut input = String::new();
+/// io::stdin().read_line(&amp;mut input)?;
+/// # Ok(())
+/// # }
+/// ```
+</code></pre>
+<p>从 1.34.0 版开始，还可以省略<code>fn main()</code>，但必须消除错误类型的歧义：</p>
+<pre><code class="language-ignore">/// ```
+/// use std::io;
+/// let mut input = String::new();
+/// io::stdin().read_line(&amp;mut input)?;
+/// # Ok::&lt;(), io::Error&gt;(())
+/// ```
+</code></pre>
+<p><code>?</code>运算符要添加隐式转换，是一个不幸的结果。是因为类型不是唯一的，所以不这样的话，会导致类型推断失败。请注意，您必须写下<code>(())</code>序列，中间没有空格，以便 RustDoc 了解您需要一个隐式<code>Result</code>——返回函数。</p>
+<p>从 1.37.0 版开始，这种简化也适用于<code>Option</code>s，可以方便地测试，例如迭代器或校验算术，例如：</p>
+<pre><code class="language-ignore">/// ```
+/// let _ = &amp;[].iter().next()?;
+///# Some(())
+/// ```
+</code></pre>
+<p>请注意，结果必须是<code>Some(())</code>，且必须一次。在这种情况下，不需要消除结果的歧义。</p>
+<a class="header" href="#宏的文档" id="宏的文档"><h2>宏的文档</h2></a>
+<p>以下是一个宏的文档示例：</p>
+<pre><pre class="playpen"><code class="language-rust">/// 除非表达式正确，不然就信息性恐慌
+///
+/// # Examples
+///
+/// ```
+/// # #[macro_use] extern crate foo;
+/// # fn main() {
+/// panic_unless!(1 + 1 == 2, “Math is broken.”);
+/// # }
+/// ```
+///
+/// ```should_panic
+/// # #[macro_use] extern crate foo;
+/// # fn main() {
+/// panic_unless!(true == false, “I’m broken.”);
+/// # }
+/// ```
+#[macro_export]
+macro_rules! panic_unless {
+    ($condition:expr, $($rest:expr),+) =&gt; ({ if ! $condition { panic!($($rest),+); } });
+}
+# fn main() {}
+</code></pre></pre>
+<p>你会注意到三件事：</p>
+<ul>
+<li>1，我们需要增加我们自己的<code>extern crate</code>行，以便我们可以添加<code>#[macro_use]</code>属性。</li>
+<li>2，我们需要增加我们自己的<code>main()</code>以及（出于上述原因）。</li>
+<li>3，最后，明智地使用<code>#</code>注释掉这两件事，这样它们就不会出现在输出中。</li>
+</ul>
+<a class="header" href="#属性" id="属性"><h2>属性</h2></a>
+<p>有一些注释对<code>rustdoc</code>正确测试代码的事情上有帮助：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// ```ignore
+/// fn foo() {
+/// ```
+# fn foo() {}
+#}</code></pre></pre>
+<p>这个<code>ignore</code>指令告诉 Rust 忽略您的代码。大概是你不想要的(代码)，因为它太普通了。相反，如果不是代码，考虑用<code>text</code>文本，或者使用<code>#</code>得到一个只显示你关心的部分的工作示例。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// ```should_panic
+/// assert!(false);
+/// ```
+# fn foo() {}
+#}</code></pre></pre>
+<p><code>should_panic</code>讲述<code>rustdoc</code>代码应该正确编译，但不能作为测试通过。</p>
+<pre><code class="language-text">/// ```no_run
+/// loop {
+///     println!(&quot;Hello, world&quot;);
+/// }
+/// ```
+# fn foo() {}
+</code></pre>
+<p>这个<code>no_run</code>属性将编译代码，但不运行它。这对“以下是如何检索网页”等示例很重要，您可能希望确保编译，但可能是在没有网络访问的测试环境中运行。</p>
+<pre><code class="language-text">/// ```compile_fail
+/// let x = 5;
+/// x += 2; // shouldn't compile!
+/// ```
+</code></pre>
+<p><code>compile_fail</code>讲述<code>rustdoc</code>编译应该失败。如果它编译，那么测试将失败。但是，请注意，随着新特性的添加，在当前 Rust 标准版失败的代码，可能在将来的版本中工作。</p>
+<pre><code class="language-text">/// 只在 2018 edition 运行.
+///
+/// ```edition2018
+/// let result: Result&lt;i32, ParseIntError&gt; = try {
+///     &quot;1&quot;.parse::&lt;i32&gt;()?
+///         + &quot;2&quot;.parse::&lt;i32&gt;()?
+///         + &quot;3&quot;.parse::&lt;i32&gt;()?
+/// };
+/// ```
+</code></pre>
+<p><code>edition2018</code>讲述<code>rustdoc</code>代码样本，应在 2018 版 Rust 下编译。同样，您可以指定<code>edition2015</code>以 2015 年版编制本规范。</p>
+<a class="header" href="#语法参考" id="语法参考"><h2>语法参考</h2></a>
+<p><em>准确的</em>代码块（包括边缘大小写）的语法可以在通用标记规范的<a href="https://spec.commonmark.org/0.28/#fenced-code-blocks">用栅栏围起来的代码块</a>章节找到。</p>
+<p>RustDoc 也接受<em>缩进</em>代码块，作为栅栏代码块的替代：您可以将每行缩进四个或更多的空格，而不是用三个反勾号包围代码。</p>
+<pre><code class="language-markdown">    let foo = &quot;foo&quot;;
+    assert_eq!(foo, &quot;foo&quot;);
+</code></pre>
+<p>这些也记录在通用标记规范中，<a href="https://spec.commonmark.org/0.28/#indented-code-blocks">缩进代码块</a>章节。</p>
+<p>但是，最好使用栅栏代码块，而不是缩进代码块。不仅仅是栅栏代码块被认为是 Rust 代码的习惯，还因为缩进代码块没有办法使用诸如<code>ignore</code>或<code>should_panic</code>。</p>
+<a class="header" href="#通行证传递参passes" id="通行证传递参passes"><h1>通行证/传递参（Passes）</h1></a>
+<p>Rustdoc 有一个名为“passes”的概念。这些是在生成最终输出之前，<code>rustdoc</code>文档的转变方式。</p>
+<p>除了下面描述的 passes 之外，也可以看看这些标志的文档：</p>
+<ul>
+<li><a href="command-line-arguments.zh.html#--passes-add-more-rustdoc-passes"><code>--passes</code></a></li>
+<li><a href="command-line-arguments.zh.html#--no-defaults-dont-run-default-passes"><code>--no-defaults</code></a></li>
+</ul>
+<a class="header" href="#默认通行证" id="默认通行证"><h2>默认通行证</h2></a>
+<p>默认情况下，rustdoc 将运行一些传递参，即：</p>
+<ul>
+<li><code>strip-hidden</code></li>
+<li><code>strip-private</code></li>
+<li><code>collapse-docs</code></li>
+<li><code>unindent-comments</code></li>
+</ul>
+<p>而，<code>strip-private</code>暗示<code>strip-private-imports</code>(剔除私有导入)，所以有效地，默认情况下运行所有传递。</p>
+<a class="header" href="#strip-hidden" id="strip-hidden"><h2><code>strip-hidden</code></h2></a>
+<p>这个传递参实现了<code>#[doc(hidden)]</code>属性。当此传递参运行时，它会检查每个项，若使用此属性进行注释，则会将其从<code>rustdoc</code>的输出中删除。</p>
+<p>如果没有此传递参，这些项将保留在输出中。</p>
+<a class="header" href="#unindent-comments" id="unindent-comments"><h2><code>unindent-comments</code></h2></a>
+<p>当你写这样的文档注释时：</p>
+<pre><code class="language-rust ignore">/// This is a documentation comment.
+</code></pre>
+<p>这<code>///</code>和<code>T</code>之间有一个空格。该空格间距不是输出的一部分；但它更利于人类阅读，帮助我们将注释语法与注释文本分开。这个传递参就是移除那个空格。</p>
+<p>确切的数量规则未指定，所以我们可以解决我们发现的问题。</p>
+<p>没有此传递参，将保留确切的空格数。</p>
+<a class="header" href="#collapse-docs" id="collapse-docs"><h2><code>collapse-docs</code></h2></a>
+<p>有了这个传递参，多个<code>#[doc]</code>属性会转换为单个文档字符串。</p>
+<p>例如：</p>
+<pre><code class="language-rust ignore">#[doc = &quot;This is the first line.&quot;]
+#[doc = &quot;This is the second line.&quot;]
+</code></pre>
+<p>会折叠成单个文档字符串</p>
+<pre><code class="language-text">This is the first line.
+This is the second line.
+</code></pre>
+<a class="header" href="#strip-private" id="strip-private"><h2><code>strip-private</code></h2></a>
+<p>这将删除任何非-公共项的文档，例如：</p>
+<pre><code class="language-rust ignore">/// These are private(私有) docs.
+struct Private;
+
+/// These are public(公共) docs.
+pub struct Public;
+</code></pre>
+<p>此传递参删除了<code>Private</code>文档，因为他们不公开。</p>
+<p>这个传递参，意味着<code>strip-priv-imports</code>。</p>
+<a class="header" href="#strip-priv-imports" id="strip-priv-imports"><h2><code>strip-priv-imports</code></h2></a>
+<p>这与<code>strip-private</code>一样的，但针对<code>extern crate</code>和<code>use</code>语句，而不是项。</p>
+<a class="header" href="#不稳定的功能" id="不稳定的功能"><h1>不稳定的功能</h1></a>
+<p>Rustdoc 正在积极开发中，与 Rust 编译器一样，某些功能仅在夜间版本中可用。其中一些功能是新功能，需要进一步测试才能将它们发布到全世界，其中一些功能与 Rust 编译器中不稳定的功能相关联。这里的一些功能需要有匹配<code>#![feature(...)]</code>启用，而更全面的文档，记录在<a href="https://doc.rust-lang.org/unstable-book/index.html">不稳定的书</a>。文档有些部分会根据需要链接到那里。</p>
+<blockquote>
+<p>译者：crate - 箱子；trait - 特质；</p>
+</blockquote>
+<a class="header" href="#夜间nightly功能" id="夜间nightly功能"><h2>夜间(nightly)功能</h2></a>
+<p>以下功能只需要夜间构建即可运行。与此页面上的其他功能不同，这些功能不需要用命令行标志“打开”，或在箱子上写有<code>#![feature(...)]</code>属性。若是在稳定(stable)版本上使用(这些功能)时，会留一些后路模式，所以还是要小心！</p>
+<a class="header" href="#compile-fail文档测试的错误编号" id="compile-fail文档测试的错误编号"><h3><code>compile-fail</code>文档测试的错误编号</h3></a>
+<p>详见<a href="documentation-tests.zh.html#%E5%B1%9E%E6%80%A7">文档测试的章节</a>，你可以为 doctest 添加一个<code>compile_fail</code>属性，表明测试应该无法通过编译。但是，在夜间，您可以选择添加错误编号，以声明 doctest 应该发出特定的错误编号：</p>
+<pre><code class="language-markdown">```compile_fail,E0044
+extern { fn some_func&lt;T&gt;(x: T); }
+```
+</code></pre>
+<p>错误索引(error index)会使用它(E0044)，确保样本正确地发出对应错误代码。但是，这些错误代码不能保证的唯一一件事是，这一段代码在版本之间没有问题，因此将来不太可能稳定。</p>
+<p>尝试在 stable 版本上使用这些错误号，将导致代码示例被解释为纯文本。</p>
+<a class="header" href="#按类型链接到某项" id="按类型链接到某项"><h3>按类型，链接到某项</h3></a>
+<p>按照<a href="https://github.com/rust-lang/rfcs/pull/1946">RFC 1946</a>的设计，当您将某项用作链接时，Rustdoc 可以解析项的路径。要解析这些类型名称，它通过声明或通过<code>use</code>，使用当前在范围内的项。对于模块，“活动范围”取决于文档是否写在模块外部（如<code>mod</code>内的<code>///</code>注释）或模块内部（文件或块内的<code>//!</code>注释）。对于所有其他项，它使用封闭模块的范围。</p>
+<p>例如，在以下代码中：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+/// Does the thing.
+pub fn do_the_thing(_: SomeType) {
+    println!(&quot;Let's do the thing!&quot;);
+}
+
+/// Token you use to [`do_the_thing`].
+pub struct SomeType;
+#}</code></pre></pre>
+<p>在<code>SomeType</code>的文档有<code>[`do_the_thing`]</code>链接，会正确链接到<code>fn do_the_thing</code>页面。请注意，在这里，rustdoc 将为您插入链接目标，但手动编写目标也可以：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub mod some_module {
+    /// Token you use to do the thing.
+    pub struct SomeStruct;
+}
+
+/// Does the thing. 需要一个 [`SomeStruct`] for the thing to work.
+///
+/// [`SomeStruct`]: some_module::SomeStruct
+pub fn do_the_thing(_: some_module::SomeStruct) {
+    println!(&quot;Let's do the thing!&quot;);
+}
+#}</code></pre></pre>
+<p>有关详细信息，请查看<a href="https://github.com/rust-lang/rfcs/pull/1946">RFC</a>，看看<a href="https://github.com/rust-lang/rust/issues/43466">跟踪问题</a>有关该功能的哪些部分可用的更多信息。</p>
+<a class="header" href="#doc属性扩展" id="doc属性扩展"><h2><code>#[doc]</code>属性扩展</h2></a>
+<p>下面功能通过扩展<code>#[doc]</code>属性来操作，因此可以被编译器捕获，并启用箱子中的<code>#![feature(...)]</code>属性。</p>
+<a class="header" href="#记录特定平台功能的信息" id="记录特定平台功能的信息"><h3>记录，特定平台/功能的信息</h3></a>
+<p>由于 Rustdoc 记录箱子的方式，它创建的文档与特定目标 rustc 编译有关。(源代码)任何非特定的东西都会被丢弃，这是通过<code>#[cfg]</code>在编译过程的早期进行属性处理完成的。但是，Rustdoc 有一个技巧可以处理<em>确定</em>存在的特定平台代码。</p>
+<p>因为 Rustdoc 不需要将 crate 完全编译为二进制文件，所以它会把函数体替换成<code>loop {}</code>，防止不必要的处理。这意味着，将忽略函数中，要求为特定平台部分的任何代码。结合特殊属性，<code>#[doc(cfg(...))]</code>，你可以告诉 Rustdoc 确切运行的平台，确保 doctests 只在适当的平台上运行。</p>
+<p>该<code>#[doc(cfg(...))]</code>属性具有另一个效果：当 Rustdoc 渲染该项的文档时，它将附有一个横幅（提示），说明该项仅在某些平台上可用。</p>
+<p>对于 Rustdoc 来记录项，它需要查看它，无论它当前在哪个平台上运行。为了解决这个问题，Rustdoc 在你的箱子上运行时，会设置标志<code>#[cfg(rustdoc)]</code>。将此与项的给定目标平台(如：windows)相结合，可以在该平台上正常构建您的箱子以及任何地方构建文档的情况下，显示它。</p>
+<p>例如，<code>#[cfg(any(windows, rustdoc))]</code>将在 Windows 上或在文档化过程中，保留项。然后，添加新属性<code>#[doc(cfg(windows))]</code>将告诉 Rustdoc，该项应该在 Windows 上使用。例如：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#![feature(doc_cfg)]
+
+#fn main() {
+/// Token struct that can only be used on Windows.
+#[cfg(any(windows, rustdoc))]
+#[doc(cfg(windows))]
+pub struct WindowsToken;
+
+/// Token struct that can only be used on Unix.
+#[cfg(any(unix, rustdoc))]
+#[doc(cfg(unix))]
+pub struct UnixToken;
+#}</code></pre></pre>
+<p>在此示例中，Token 只会出现在各自的平台上，但它们都会出现在文档中。</p>
+<p><code>#[doc(cfg(...))]</code>被引入标准库使用，目前需要<code>#![feature(doc_cfg)]</code>功能守卫。有关更多信息，请参阅<a href="https://doc.rust-lang.org/unstable-book/language-features/doc-cfg.html">它在不稳定之书的章节</a>和<a href="https://github.com/rust-lang/rust/issues/43781">它的跟踪问题</a>。</p>
+<a class="header" href="#将您的-trait-添加到important-traits对话框" id="将您的-trait-添加到important-traits对话框"><h3>将您的 trait 添加到“Important Traits”对话框</h3></a>
+<p>Rustdoc 保存了一个列表，有一些 trait(特质)，这些特质在实现时被认为是给定类型的“基础”。这些特质旨在成为其类型的主要接口，并且通常是其类型的唯一可用文档。因此，Rustdoc 会跟踪给定类型何时实现其中一个特质，并在函数返回其中一个类型时，特别标住它。这是“Important Traits”对话框，在函数旁边显示为 圆圈-i 按钮，单击此按钮可显示对话框。</p>
+<p>在标准库中，符合条件的特质是<code>Iterator</code>，<code>io::Read</code>，和<code>io::Write</code>。但是，这些特质不是硬编码列表，而是具有特殊的标记属性：<code>#[doc(spotlight)]</code>。这意味着您可以将此属性应用于您自己的特质，并将其包含在文档中的“Important Traits”对话框中。</p>
+<p>该<code>#[doc(spotlight)]</code>属性目前需要<code>#![feature(doc_spotlight)]</code>功能守卫。有关更多信息，请参阅<a href="https://doc.rust-lang.org/unstable-book/language-features/doc-spotlight.html">它在不稳定的书中的章节</a>和<a href="https://github.com/rust-lang/rust/issues/45040">它的跟踪问题</a>。</p>
+<a class="header" href="#从文档中排除某些依赖项" id="从文档中排除某些依赖项"><h3>从文档中，排除某些依赖项</h3></a>
+<p>标准库使用多个依赖项，而这些依赖项又使用标准库中的几种类型和特质。此外，编译器内部，有几个箱子，不被认为是官方标准库的一部分，因此会在文档中分散。排除他们的箱子文件是不够的，因为关于特质实现的信息，会出现在类型和特质的页面上，且可以是不同的箱子！</p>
+<p>为防止内部类型包含在文档中，标准库会为其<code>extern crate</code>声明添加了属性：<code>#[doc(masked)]</code>。这会导致 Rustdoc 在构建特质实现列表时，“屏蔽掉”这些包中的类型。</p>
+<p>该<code>#[doc(masked)]</code>属性旨在在内部使用，并且需要<code>#![feature(doc_masked)]</code>功能守卫。有关更多信息，请参阅<a href="https://doc.rust-lang.org/unstable-book/language-features/doc-masked.html">它在不稳定的书中的章节</a>和<a href="https://github.com/rust-lang/rust/issues/44027">它的跟踪问题</a>。</p>
+<a class="header" href="#包含外部文件把它作为-api-文档" id="包含外部文件把它作为-api-文档"><h3>包含外部文件，把它作为 API 文档</h3></a>
+<p>按照设计<a href="https://github.com/rust-lang/rfcs/pull/1990">RFC 1990</a>，Rustdoc 可以读取外部文件以用作类型的文档。如果某些文档太长，以至于会破坏读取源代码的流程，这将非常有用。不把全部文档内联，而是用<code>#[doc(include = &quot;sometype.md&quot;)]</code>（这里的<code>sometype.md</code>是一个箱子中<code>lib.rs</code>邻近的文件）将要求 Rustdoc 读取该文件并使用它，就好像它是内联编写的一样。</p>
+<p><code>#[doc(include = &quot;...&quot;)]</code>目前需要<code>#![feature(external_doc)]</code>功能守卫。有关更多信息，请参阅<a href="https://doc.rust-lang.org/unstable-book/language-features/external-doc.html">它在不稳定的书中的章节</a>和<a href="https://github.com/rust-lang/rust/issues/44732">它的跟踪问题</a>。</p>
+<a class="header" href="#在文档搜索中为某项添加别名" id="在文档搜索中为某项添加别名"><h3>在文档搜索中，为某项添加别名</h3></a>
+<p>此功能允许您为某项添加别名，这样当使用<code>rustdoc</code>搜索时，会接触到<code>doc(alias)</code>属性。例：</p>
+<pre><pre class="playpen"><code class="language-rust no_run">
+# #![allow(unused_variables)]
+#![feature(doc_alias)]
+
+#fn main() {
+#[doc(alias = &quot;x&quot;)]
+#[doc(alias = &quot;big&quot;)]
+pub struct BigX;
+#}</code></pre></pre>
+<p>然后，输入“x”或“big”，<code>rustdoc</code>搜索会找到，并优先显示<code>BigX</code>结构。</p>
+<a class="header" href="#不稳定的命令行参数" id="不稳定的命令行参数"><h2>不稳定的命令行参数</h2></a>
+<p>通过将命令行标志传递给 Rustdoc 来启用这些功能，但是有问题的标志本身被标记为不稳定。要使用这些选项中的任何一个，请在命令行上传递<code>-Z unstable-options</code>和问题标志。要从 Cargo 执行此操作，您可以使用<code>RUSTDOCFLAGS</code>环境变量，或<code>cargo rustdoc</code>命令。</p>
+<blockquote>
+<p>译者：（下面的）内容 - content: 代指要渲染的 HTML 内容。</p>
+</blockquote>
+<a class="header" href="#--markdown-before-content在内容之前包含渲染的-markdown" id="--markdown-before-content在内容之前包含渲染的-markdown"><h3><code>--markdown-before-content</code>：在内容之前，包含渲染的 Markdown</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --markdown-before-content extra.md
+$ rustdoc README.md -Z unstable-options --markdown-before-content extra.md
+</code></pre>
+<p>就像<code>--html-before-content</code>，这允许您在<code>&lt;body&gt;</code>标签内部，但在其他<code>rustdoc</code>正常生成内容之前，插入额外的内容(extra.md)。但不是直接插入文件，<code>rustdoc</code>会通过 Markdown 渲染器过滤文件，再把结果插入。</p>
+<a class="header" href="#--markdown-after-content在内容之后包含渲染的-markdown" id="--markdown-after-content在内容之后包含渲染的-markdown"><h3><code>--markdown-after-content</code>：在内容之后，包含渲染的 Markdown</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --markdown-after-content extra.md
+$ rustdoc README.md -Z unstable-options --markdown-after-content extra.md
+</code></pre>
+<p>就像<code>--html-after-content</code>，这允许您在<code>&lt;body&gt;</code>标签内部，但在其他<code>rustdoc</code>正常生成内容之后，插入额外的内容(extra.md)。但不是直接插入文件，<code>rustdoc</code>会通过 Markdown 渲染器过滤文件，再把结果插入。</p>
+<a class="header" href="#--playground-url控制游乐场的位置" id="--playground-url控制游乐场的位置"><h3><code>--playground-url</code>：控制游乐场的位置</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --playground-url https://play.rust-lang.org/
+</code></pre>
+<p>渲染一个箱子的文档时，此标志提供 Rust Playground 的基本 URL，用于生成<code>Run</code>纽扣。不像<code>--markdown-playground-url</code>，此参数适用于独立的 Markdown 文件<em>和</em>Rust 箱。这与添加<code>#![doc(html_playground_url = &quot;url&quot;)]</code>到你箱子根目录的方式相同。在<a href="the-doc-attribute.zh.html#html_playground_url">章节<code>#[doc]</code>属性</a>有提到。请注意正式的 Rust Playground<a href="https://play.rust-lang.org">https://play.rust-lang.org</a>，它没有任何可用的非标准库箱子，所以，如果你的例子需要你的箱子，请确保你提供的游乐场有你的箱子。</p>
+<p>如果<code>--playground-url</code>和<code>--markdown-playground-url</code>两者在渲染独立的 Markdown 文件时出现，且 URL 都给定，<code>--markdown-playground-url</code>将优先考虑。如果<code>--playground-url</code>和<code>#![doc(html_playground_url = &quot;url&quot;)]</code>两者在渲染箱子文档时存在，属性（后者）将优先。</p>
+<a class="header" href="#--crate-version控制箱子版本" id="--crate-version控制箱子版本"><h3><code>--crate-version</code>：控制箱子版本</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --crate-version 1.3.37
+</code></pre>
+<p>当<code>rustdoc</code>收到这个标志后，它会在箱子根文档的侧边栏中，打印一个额外的“Version (version)”。您可以使用此标志来区分库文档的不同版本。</p>
+<a class="header" href="#--linker控制用于文档测试的链接员" id="--linker控制用于文档测试的链接员"><h3><code>--linker</code>：控制用于文档测试的链接员</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc --test src/lib.rs -Z unstable-options --linker foo
+$ rustdoc --test README.md -Z unstable-options --linker foo
+</code></pre>
+<p>当<code>rustdoc</code>运行您的文档测试，它需要在运行它们之前，编译并将测试链接为可执行文件。此标志可用来更改，这些可执行文件上使用的链接员。这相当于传递<code>-C linker=foo</code>到<code>rustc</code>。</p>
+<a class="header" href="#--sort-modules-by-appearance控制模块页面上的项的排序方式" id="--sort-modules-by-appearance控制模块页面上的项的排序方式"><h3><code>--sort-modules-by-appearance</code>：控制模块页面上的项的排序方式</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --sort-modules-by-appearance
+</code></pre>
+<p>通常，当<code>rustdoc</code>在模块页面中打印项，它将按字母顺序排序（考虑它们的稳定性，以及以数字结尾的名称）。给<code>rustdoc</code>这个标志将禁用这种排序，选择按照它们在源代码中出现的顺序打印项。</p>
+<a class="header" href="#--themes提供其他主题" id="--themes提供其他主题"><h3><code>--themes</code>：提供其他主题</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --themes theme.css
+</code></pre>
+<p>给<code>rustdoc</code>这个标志将使您的主题复制到生成的箱子文档中，并在主题选择器中启用。注意<code>rustdoc</code>将拒绝您的主题文件，如果它没有“light”主题的所有样式(元素名)。欲知详情，看下面的<code>--theme-checker</code>。</p>
+<a class="header" href="#--theme-checker验证主题-css-的有效性" id="--theme-checker验证主题-css-的有效性"><h3><code>--theme-checker</code>：验证主题 CSS 的有效性</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc -Z unstable-options --theme-checker theme.css
+</code></pre>
+<p>在将您的主题包含在箱子文档中之前，<code>rustdoc</code>会把它包含的所有 CSS 规则，与默认包含的“light”主题进行比较。使用此标志将允许您在<code>rustdoc</code>拒绝你的主题，能够查看缺少哪些规则。</p>
+<a class="header" href="#--resource-suffix修改箱子文档中的-css--javascript-名称" id="--resource-suffix修改箱子文档中的-css--javascript-名称"><h3><code>--resource-suffix</code>：修改箱子文档中的 CSS / JavaScript 名称</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --resource-suffix suf
+</code></pre>
+<p>渲染文档时，<code>rustdoc</code>创建几个 CSS 和 JavaScript 文件作为输出的一部分。由于所有这些文件都是每个页面要链接的，因此如果您需要专门缓存它们，更改它们的位置可能会很麻烦。此标志将重命名输出中的所有这些文件，以在文件名中包含后缀。例如用上面的命令，<code>light.css</code>会成为<code>light-suf.css</code>。</p>
+<a class="header" href="#--display-warnings记录或运行文档测试时显示警告" id="--display-warnings记录或运行文档测试时显示警告"><h3><code>--display-warnings</code>：记录或运行文档测试时显示警告</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --display-warnings
+$ rustdoc --test src/lib.rs -Z unstable-options --display-warnings
+</code></pre>
+<p>此标志背后的意图是允许用户查看其库或其文档测试中，发生的警告，这些警告通常会被抑制。然而，<a href="https://github.com/rust-lang/rust/issues/41574">由于一个错误</a>，这个标志不是 100％按预期工作。有关详细信息，请参阅问题链接</p>
+<a class="header" href="#--extern-html-root-url控制-rustdoc-如何链接到非本地箱子" id="--extern-html-root-url控制-rustdoc-如何链接到非本地箱子"><h3><code>--extern-html-root-url</code>：控制 rustdoc 如何链接到非本地箱子</h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --extern-html-root-url some-crate=https://example.com/some-crate/1.0.1
+</code></pre>
+<p>通常，当 rustdoc 想要链接到来自不同箱子的类型时，它会在两个地方查找：输出目录中已存在的文档，或者是另一个箱子中的<code>#![doc(doc_html_root)]</code>。但是，如果要链接到这两个位置中都不存在的文档，可以使用这些标志来控制该行为。当<code>--extern-html-root-url</code>使用，并与您的某个依赖项(名称)匹配，rustdoc 会使用这些文档的 URL。请记住，如果这些文档存在于输出目录中，那些本地文档仍将覆盖此标志。</p>
+<a class="header" href="#-z-force-unstable-if-unmarked" id="-z-force-unstable-if-unmarked"><h3><code>-Z force-unstable-if-unmarked</code></h3></a>
+<p>使用此标志如下所示：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z force-unstable-if-unmarked
+</code></pre>
+<p>这是一个内部标志，用于标准库和应用程序的编译器，将<code>#[unstable]</code>属性应用到任何没有其他稳定属性的依赖箱子。这允许<code>rustdoc</code>能够为编译器包和标准库生成文档，作为建造这些箱子时，提供给<code>rustc</code>的等效命令行参数。</p>
+<a class="header" href="#--index-page为文档提供顶层网面" id="--index-page为文档提供顶层网面"><h3><code>--index-page</code>：为文档提供顶层网面</h3></a>
+<p>此功能允许您生成，给定 markdown 文件的索引页面。一个很好的例子是<a href="https://doc.rust-lang.org/index.html">rust 文档索引页</a>。</p>
+<p>有了这个，你将有一个页面，你可以在你的箱子顶部，尽可能自定义定制。</p>
+<p>使用<code>index-page</code>选项，也会启用<code>enable-index-page</code>。</p>
+<a class="header" href="#--enable-index-page为文档生成默认索引页" id="--enable-index-page为文档生成默认索引页"><h3><code>--enable-index-page</code>：为文档生成默认索引页</h3></a>
+<p>此功能允许，生成列出生成箱子的默认索引页。</p>
+<a class="header" href="#--static-root-path控制静态文件在-html-输出中的加载方式" id="--static-root-path控制静态文件在-html-输出中的加载方式"><h3><code>--static-root-path</code>：控制静态文件在 HTML 输出中的加载方式</h3></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --static-root-path '/cache/'
+</code></pre>
+<p>此标志控制 RustDoc 如何链接到 HTML 页面上的静态文件。如果您托管了许多，由同一版本的 RustDoc 生成的箱子文档，则可以使用此标志将 RustDoc 的 CSS、javascript 和字体文件缓存在单个位置，而不是每个“Doc root”（将生成的箱子文档，分组到同一输出目录，如<code>cargo doc</code>）每个箱子文件（如搜索索引）仍将从文档根目录加载，但从给定路径，加载并重命名为<code>--resource-suffix</code>。</p>
+<a class="header" href="#--persist-doctests运行后保留-doctest-可执行文件" id="--persist-doctests运行后保留-doctest-可执行文件"><h3><code>--persist-doctests</code>：运行后保留 doctest 可执行文件</h3></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs --test -Z unstable-options --persist-doctests target/rustdoctest
+</code></pre>
+<p>此标志允许您在编译或运行 doctest 可执行文件之后保留它们。通常，RustDoc 会在测试后立即丢弃编译好的 doctest，但使用此选项，您可以保留这些二进制文件，以进行进一步的测试。</p>
+<a class="header" href="#--show-coverage计算文档的项item百分比" id="--show-coverage计算文档的项item百分比"><h3><code>--show-coverage</code>：计算文档的项(item)百分比</h3></a>
+<p>使用此标志如下：</p>
+<pre><code class="language-bash">$ rustdoc src/lib.rs -Z unstable-options --show-coverage
+</code></pre>
+<p>如果您想确定箱子中，文档化了多少项，请将此标志传递给 RustDoc。当它收到这个标志时，它将统计您的箱子中，有文档的公共项，并打印出计数和百分比，而不是生成文档。</p>
+<p>一些方法说明了 RustDoc 在该指标中的重要性：</p>
+<ul>
+<li>RustDoc 只计算您箱子中的项（即从其他箱子重新导出的项，不计算在内）。</li>
+<li>直接写入内在 impl 块的文档不计算在内，即使显示了它们的文档注释，因为 Rust 代码中的常见模式是将所有内在方法写入同一 impl 块。</li>
+<li>trait 实现中的项不计算在内，因为这些 impl 将从 trait 本身继承任何文档。</li>
+<li>默认情况下，只计算公共项。要计算私有项，请同时传递<code>--document-private-items</code>。</li>
+</ul>
+<p>没有文档(注释)的公共项，可以通过内置的<code>missing_docs</code>lint 看到，没有文档(注释)的私有项，可通过 clippy <code>missing_docs_in_private_items</code>lint 查看。</p>
+
+                </main>
+
+                <nav class="nav-wrapper" aria-label="Page navigation">
+                    <!-- Mobile navigation buttons -->
+                    
+
+                    
+
+                    <div style="clear: both"></div>
+                </nav>
+            </div>
+        </div>
+
+        <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            
+
+            
+        </nav>
+
+    </div>
+
+    
+
+    
+    <!-- Google Analytics Tag -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128555056-1"></script>
+    
+    <script type="text/javascript">
+        var localAddrs = ["localhost", "127.0.0.1", ""];
+        if (localAddrs.indexOf(document.location.hostname) === -1) {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-128555056-1');
+        }
+    </script>
+    
+
+    
+
+    
+    <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+    
+
+    <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Custom JS scripts -->
+    
+
+    
+    
+    <script type="text/javascript">
+        window.addEventListener('load', function () {
+            window.setTimeout(window.print, 100);
+        });
+    </script>
+    
+    
+
+</body>
+
+</html>
